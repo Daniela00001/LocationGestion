@@ -1,0 +1,123 @@
+
+body {
+    background: linear-gradient(#596a99ff, pink); /* Applique le dégradé au corps entier */
+    background-size: cover; /* Couvre entièrement le fond */
+    background-repeat: no-repeat; /* Empêche la répétition du fond */
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+.header-image_index {
+    width: 100%;
+    height: 350px;
+    border: 2px solid rgb(255, 255, 255);
+    box-sizing: border-box;
+    margin-top: 10px; /* Ajoute un espace de 10 pixels en haut de l'image */
+}
+.header-container {
+    width: 80%;
+    text-align: center;
+}
+.presentation p {
+    font-family: "Arial", sans-serif;
+    font-size: 20px; /* Augmente la taille de police des paragraphes à 20 pixels */
+}
+
+
+.button_index,
+.button_index:focus { 
+    font-size: 20px;
+    padding: 10px 25px;
+    border-radius: 0.7rem;
+    background-image: linear-gradient(rgb(212, 206, 235), #596a99ff);
+    border: 2px solid rgb(255, 255, 255);
+    border-bottom: 2px solid  rgb(255, 255, 255);
+    box-shadow: 0px 1px 3px 0px #ffffff;
+    transform: translate(0, -3px);
+    cursor: pointer;
+    transition: 0.2s;
+    transition-timing-function: linear;
+    
+}
+
+.button_index:active {
+  transform: translate(0, 0);
+  border-bottom: 2px solid rgb(255, 255, 255);
+}
+h1 {
+    font-size: 24px; /* Taille de police */
+    margin-left: auto; /* Marge à gauche */
+    margin-right: auto; /* Marge à droite */
+    width: 80%; /* Largeur maximale */
+    text-align: left ;/* Centrage du texte */
+    margin-top: 20px; /* Marge en haut */
+    margin-bottom: 10px; /* Marge en bas */
+}
+
+/* Styles pour les éléments p */
+.p1 {
+    font-family: "Arial", sans-serif;
+    font-size: 16px; /* Taille de police */
+    margin-left: auto; /* Marge à gauche */
+    margin-right: auto; /* Marge à droite */
+    width: 80%; /* Largeur maximale */
+    margin-top: 10px; /* Marge en haut */
+    margin-bottom: 10px; /* Marge en bas */
+    text-align: left; /* Justification du texte */
+}
+.flex-container {
+    display: flex;
+    align-items: center; 
+}
+
+.formInscPRop {
+    width: 25%; /* Ajustez la largeur selon vos besoins */
+    margin: 0 auto; /* Centre le formulaire horizontalement */
+    padding: 20px;
+    border: 1px solid #ffffff;
+    border-radius: 5px;
+    background-color: #596a99ff;
+}
+
+/* Style des titres */
+.header-text2 h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    
+    color: #ffffff;
+}
+
+/* Style des étiquettes */
+.formInscPRop label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 20px;
+    color: #ffffff;
+}
+
+/* Style des champs de saisie */
+.formInscPRop input {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #000000;
+    border-radius: 3px;
+    box-sizing: border-box;
+}
+.autres-boutons {
+    display: flex;
+    justify-content: center;
+}
+
+.retourBTN {
+    display: flex;
+    justify-content: flex-start;
+}
+.autres-boutons button {
+    margin: 0 10px; /* Ajoute un espace de 10 pixels à gauche et à droite de chaque bouton */
+}
