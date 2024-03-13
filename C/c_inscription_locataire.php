@@ -1,5 +1,6 @@
 <?php
 require '../M/Class Locataire.php'; 
+require '../M/Class Demande.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Vérifie si toutes les données du formulaire sont présentes

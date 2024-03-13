@@ -1,9 +1,23 @@
-<?php 
+
+<?php
 include 'v_espace_demandeur.php';
-include '../C/c_inscription_locataire.php'; 
 @session_start();
 
-?>
+    if (isset($_SESSION["demandeur"])) {
+        $demandeurInfos = $_SESSION["demandeur"];
+        
+        // Vérifie si les données du demandeur ont été mises à jour
+        $demandeur_data = isset($demandeur_data) ? $demandeur_data : $demandeurInfos;
+
+        ?>
+        <br>
+        <br>
+          
+         
+        
+       
+  
+
 <link rel="stylesheet" href="CSS/styleSessionDem.css">
    
 <h2>Inscription Locataire</h2>
@@ -39,7 +53,11 @@ include '../C/c_inscription_locataire.php';
     <input type="password" id="mdp_loc" name="mdp_loc" required>
 
     <input type="text" name="num_apart" value="<?php echo isset($_POST['num_apart']) ? $_POST['num_apart'] : (isset($_SESSION['num_apart']) ? $_SESSION['num_apart'] : ''); ?>">
-    <input type="text" name="num_dem" value="<?php echo isset($_POST['num_dem']) ? $_POST['num_dem'] : (isset($_SESSION['num_dem']) ? $_SESSION['num_dem'] : ''); ?>">
+
+<input type="text" name="num_dem" value="<?php echo $demandeur_data['num_dem']; ?>">
+<?php
+    }
+    ?>
 
 <div class="autres-boutons">
 <button type="submit">S'inscrire</button>

@@ -1,24 +1,4 @@
-<style>
-   
-    .annonce {
-        background-color: beige;
-        border-radius: 5px;
-        padding: 20px;
-        margin-bottom: 20px;
-      
-    }
 
-    .annonce-container p {
-        margin: 5px 0;
-        color: black;
-        width: 20%;
-    }
-
-    .annonce-container h3 {
-        margin-top: 0;
-        color: black;
-    }
-</style>
 
 <?php
 include 'v_espace_demandeur.php';
@@ -45,6 +25,7 @@ if(isset($_GET["annonces"])) {
             echo "<p>Préavis: " . $appartement['preavis'] . "</p>";
             echo "<p>Date disponible: " . $appartement['date_libre'] . "</p>";
             echo "</div>";
+        
         }
         echo "</div>";
     } else {
@@ -56,3 +37,24 @@ if(isset($_GET["annonces"])) {
     echo "<h3>Aucune annonce trouvée.</h3>";
 }
 ?>
+<style>
+   
+   .annonce {
+       background-color: beige;
+       border-radius: 5px;
+       padding: 20px;
+       margin-bottom: 20px;
+     
+   }
+
+   .annonce-container p {
+       margin: 5px 0;
+       color: black;
+       width: 20%;
+   }
+
+   .annonce-container h3 {
+       margin-top: 0;
+       color: black;
+   }
+</style>

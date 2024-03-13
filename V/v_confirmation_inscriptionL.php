@@ -27,7 +27,6 @@
     <div class="autres-boutons">
         <button onclick="garderCompte()">Oui</button>
         <form action="../C/c_supDemandeur.php" method="GET">
-            <!-- Ajouter un champ caché pour transmettre le numéro de demandeur -->
             <input type="hidden" name="num_dem" value="<?php echo $demandeur_data['num_dem']; ?>">
             <button type="submit">Non</button>
         </form>

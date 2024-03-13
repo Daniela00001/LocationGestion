@@ -62,7 +62,17 @@
         <div class="profil-container">
             <h2>Profil du propriétaire</h2>
             <p>Numéro du propriétaire: <?php echo $proprietaire_data['num_prop']; ?></p>
-            
+
+
+
+            <form action="../C/c_supProp.php" method="GET">
+            <input type="hidden" name="num_prop" value="<?php echo $proprietaire_data['num_prop']; ?>">
+            <button type="submit">Supprimer</button>
+        </form>
+
+
+
+        
             <form action="../C/c_modif_infos_prop.php" method="post">
                 <label for="nom_prop">Nom:</label>
                 <input type="text" id="nom_prop" name="nom_prop" value="<?= $proprietaire_data['nom_prop'] ?>">

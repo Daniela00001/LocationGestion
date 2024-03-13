@@ -140,4 +140,36 @@ class Proprietaire {
             return false;
         }
     }
+    public function supprimerProprietaire($num_prop) {
+        global $conn; // Utilise la connexion à la base de données définie dans le fichier param_connexion_BdD.php
+    
+        try {
+            $query = "DELETE FROM proprietaire WHERE num_prop = :num_prop";
+            $stmt = $conn->prepare($query);
+            $stmt->bindParam(':num_prop', $num_prop);
+            $stmt->execute();
+    
+            // Vérifier si la suppression a réussi
+            if ($stmt->rowCount() > 0) {
+                // Suppression réussie
+                return true;
+            } else {
+                // Aucun enregistrement affecté, la suppression a échoué
+                return false;
+            }
+        } catch (PDOException $e) {
+            // Gestion des erreurs
+            echo "Erreur lors de la suppression du compte demandeur : " . $e->getMessage();
+            return false;
+        }
+    }
+    public static function loginExiste($login) {
+        global $conn;
+        $query = "SELECT COUNT(*) FROM proprietaire WHERE login_prop = :login";
+        $stmt = $conn->prepare($query);
+        $stmt->bindParam(':login', $login);
+        $stmt->execute();
+        $count = $stmt->fetchColumn();
+        return $count > 0;
+    }
 }

@@ -169,6 +169,8 @@ class Appartement {
             return [];
         }
     }
+   
+    
 
     // Méthode pour rechercher les appartements par type
     public function rechercherAppartementsParType($type) {

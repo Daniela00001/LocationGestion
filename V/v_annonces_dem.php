@@ -38,6 +38,7 @@ foreach ($annonces as $annonce) {
 }
 
 echo '</div>';
+
 ?>
 
 <script>
@@ -107,6 +108,7 @@ function clearDate(num_apart) {
     var dateInput = document.querySelector('form#form_' + num_apart + ' input[name="date_visite"]');
     dateInput.value = ''; // Efface la date entrée par l'utilisateur
 }
+
 function submitDemande(num_apart) {
     var formData = new FormData();
     formData.append('num_dem', <?php echo $demandeur['num_dem']; ?>); // ID du demandeur connecté

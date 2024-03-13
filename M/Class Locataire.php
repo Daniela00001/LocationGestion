@@ -251,6 +251,72 @@ class Locataire {
     }
     
     
+    public function getContratLoc($num_loc) {
+        global $conn;
+    
+        try {
+            $sql = "SELECT * FROM locataire
+            JOIN appartement
+            ON locataire.num_apart=appartement.num_apart
+            JOIN proprietaire
+            ON proprietaire.num_prop=appartement.num_prop
+            WHERE num_loc = :num_loc";
+            $stmt = $conn->prepare($sql);
+            $stmt->bindParam(':num_loc', $num_loc, PDO::PARAM_INT);
+            $stmt->execute();
+            $infos_locataire_appartement = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    
+            return $infos_locataire_appartement; // Changez la variable de retour à $infos_locataire_appartement
+        } catch (PDOException $e) {
+            echo "Erreur lors de la récupération des annonces : " . $e->getMessage();
+            return [];
+        }
+    }
+    
+    public function getTotalAPayer($num_loc) {
+        global $conn;
+    
+        try {
+            $sql = "SELECT (prix_loc + prix_charges) AS total 
+                    FROM locataire 
+                    JOIN appartement ON locataire.num_apart = appartement.num_apart 
+                    WHERE num_loc = :num_loc";
+            $stmt = $conn->prepare($sql);
+            $stmt->bindParam(':num_loc', $num_loc, PDO::PARAM_INT);
+            $stmt->execute();
+            $result = $stmt->fetch(PDO::FETCH_ASSOC);
+    
+            return $result;
+        } catch (PDOException $e) {
+            echo "Erreur lors du calcul du total à payer : " . $e->getMessage();
+            return 0; // ou une autre valeur par défaut selon vos besoins
+        }
+    }
 
+
+    public function supprimerLocataire($num_loc) {
+        global $conn; // Utilise la connexion à la base de données définie dans le fichier param_connexion_BdD.php
+    
+        try {
+            $query = "DELETE FROM locataire WHERE num_loc = :num_loc";
+            $stmt = $conn->prepare($query);
+            $stmt->bindParam(':num_loc', $num_loc);
+            $stmt->execute();
+    
+            // Vérifier si la suppression a réussi
+            if ($stmt->rowCount() > 0) {
+                // Suppression réussie
+                return true;
+            } else {
+                // Aucun enregistrement affecté, la suppression a échoué
+                return false;
+            }
+        } catch (PDOException $e) {
+            // Gestion des erreurs
+            echo "Erreur lors de la suppression du compte demandeur : " . $e->getMessage();
+            return false;
+        
+        }
+    }
 }
 ?>

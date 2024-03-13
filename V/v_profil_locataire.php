@@ -1,19 +1,35 @@
-
-    <?php
+<?php
 include 'v_espace_locataire.php';
 
-   if (isset($_SESSION["locataire"])) {
-        $locataireInfos = $_SESSION["locataire"];
-   }
-        ?>
-        <br>
-        <br>
-        <div class="profil-container">
-            <h2>Profil du locataire</h2>
-            <p>Numéro du locataire: <?php echo $locataireInfos['num_loc']; ?></p>
+if (isset($_SESSION["locataire"])) {
+    $locataireInfos = $_SESSION["locataire"];
+}
+?>
+<br>
+<br>
+<div class="profil-container">
+    <h2>Profil du locataire</h2>
+    <p>Numéro du locataire: <?php echo $locataireInfos['num_loc']; ?></p>
 
-        <br>
-        <br>
+    <br>
+    <br>
+
+   
+        <form action="../C/c_supLoc.php" method="GET">
+            <!-- Ajouter un champ caché pour transmettre le numéro de demandeur -->
+            <input type="hidden" name="num_loc" value="<?php echo $locataireInfos['num_loc']; ?>">
+            <button type="submit">Supprimer</button>
+        </form>
+      
+
+    <script>
+        function garderCompte() {
+            // Rediriger l'utilisateur vers la nouvelle page de confirmation
+            window.location.href = "v_confirmation_suite.php";
+        }
+    </script>
+</div>
+<br><br><br>
             <form action="../C/c_modif_infos_loc.php" method="post">
                 <!-- Champs de formulaire avec les valeurs actuelles du locataire -->
                 <label for="nom_loc">Nom:</label>

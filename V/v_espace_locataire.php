@@ -17,10 +17,9 @@ if(isset($_SESSION["locataire"])) {
     <nav>
     <div class="navbar">
         <a href="v_home_locataire.php">Accueil</a>
-        <a href="v_annonces_loc.php">Annonces</a>
         <a href="v_profil_locataire.php">Profil</a>
    <div class="haut1">  <?php echo $login_loc; ?></div>
-   <form method="post" action="../C/c_connexionP.php" class="haut">
+   <form method="post" action="../C/c_connexionL.php" class="haut">
             <input type="submit" name="deconnexion" value="Déconnexion">
         </form>
         

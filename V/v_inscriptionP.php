@@ -6,7 +6,6 @@
     <title>Inscription Propriétaire</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link rel="stylesheet" type="text/css" href="../V/CSS/style.css">
-
 </head>
 <body>
     <main>
@@ -22,11 +21,12 @@
         </div>
     </main>
     <div class="retourBTN">
-    <button class="button_index"  onclick="location.href='v_choix_inscription.php'"><i class="fas fa-arrow-left"></i> Retour</button>
+        <button class="button_index"  onclick="location.href='v_choix_inscription.php'"><i class="fas fa-arrow-left"></i> Retour</button>
     </div>
-   
-
-    <form action="../C/c_inscription_proprietaire.php" method="post">
+    <div id="alerte">
+        <?php echo isset($_SESSION['erreur']) ? $_SESSION['erreur'] : ''; ?>
+    </div>
+    <form action="../C/c_inscription_proprietaire.php" method="post" onsubmit="return validateForm()">
         <div class="formInscPRop">
             <div class="header-text2">
                 <h2>Inscription Propriétaire </h2>
@@ -44,12 +44,25 @@
             <label for="login">Login :</label>
             <input type="text" id="login" name="login" required>
             <label for="mdp">Mot de passe :</label>
-            <input type="password" id="mdp" name="mdp" required>
+            <input type="password" id="mdp" name="mdp" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Le mot de passe doit contenir au moins 8 caractères, une lettre majuscule, une lettre minuscule et un chiffre." required>
         </div>
         <br>
         <div class="autres-boutons">
-        <button class="button_index" type="submit">S'inscrire</button>
+            <button class="button_index" type="submit">S'inscrire</button>
         </div>
     </form>
+
+    <script>
+        // Fonction pour valider le formulaire et afficher l'alerte si nécessaire
+        function validateForm() {
+            var errorMessage = "<?php echo isset($_SESSION['erreur']) ? $_SESSION['erreur'] : '' ?>";
+            
+            if (errorMessage !== "") {
+                alert(errorMessage);
+                return false; // Annule la soumission du formulaire si une erreur est présente
+            }
+            return true; // Soumet le formulaire si aucune erreur n'est présente
+        }
+    </script>
 </body>
 </html>
