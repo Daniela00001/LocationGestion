@@ -1,0 +1,136 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+.navbar {
+    overflow: hidden;
+    background: linear-gradient(to bottom right,  #f7f7f7, #596a99ff);
+    text-align: center;
+}
+
+.navbar a {
+    display: inline-block;
+    color: rgb(255, 255, 255);
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    transition: background-color 0.3s;
+}
+
+.navbar a:hover {
+    background-color: #ddd;
+    color: black;
+}
+.haut {
+    margin-left: 75%; 
+    margin-top: -35px;
+    margin-bottom: 10px;
+}
+.haut1 {
+    margin-left: 60%; 
+    margin-top: -30px;
+    margin-bottom: 15px;
+}
+
+.haut input[type="submit"] {
+    background-color:linear-gradient(to bottom right,  #f7f7f7, #596a99ff);
+    color: rgb(0, 0, 0); /* Texte blanc */
+    border: none; /* Pas de bordure */
+    border-radius: 5px; /* Coins arrondis */
+    padding: 10px 20px; /* Espacement intérieur */
+    cursor: pointer; /* Curseur pointer */
+    transition: background-color 0.3s; /* Transition fluide */
+}
+
+/* Hover */
+.haut input[type="submit"]:hover {
+    background-color: #7d26cd; /* Changement de couleur au survol */
+}
+
+
+
+.about-us {
+    max-width: 1600px; /* Limitez la largeur pour éviter que le contenu ne devienne trop étiré */
+    margin: 50px auto 30px; /* Ajoutez plus de marge en bas */
+    background-color: #f7f7f7;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: left;
+}
+
+h1, h2 {
+    color: #333;
+    text-align: left;
+}
+
+h1 {
+    border-bottom: 2px solid #333;
+    padding-bottom: 10px;
+}
+
+p {
+    color: #333;
+    line-height: 1.6;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    padding: 10px;
+    background: linear-gradient(to bottom right,  #f7f7f7, #596a99ff);
+    border-radius: 5px;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+li {
+    margin-bottom: 10px;
+}
+
+strong {
+    color: #555;
+}
+
+#visites-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.visite {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    padding: 20px;
+    border-radius: 10px;
+    width: calc(20% - 10px); /* Pour afficher 3 éléments par ligne avec un espacement de 20px */
+}
+
+.visite h3 {
+    margin-top: 0;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.visite p {
+    margin-bottom: 10px;
+}
+
+.visite form {
+    display: inline-block;
+}
+
+.visite button {
+    background-color: purple;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.visite button:hover {
+    background-color: #7d26cd;
+}
