@@ -4,17 +4,15 @@ include '../C/c_TB_Prop.php';
 ?>
 
 <link rel="stylesheet" href="CSS/styleSessionProp.css">
-
+<h2>Mes locataires :</h2>
 <div class="demandes-container">
    
 <?php foreach ($demandes as $demande): ?>
     <div class="demande">
-
-    
     <p><strong>Numéro appartement :</strong> <?php echo $demande['num_apart']; ?></p>
         <p><strong>Prix location :</strong> <?php echo $demande['prix_loc']; ?></p>
         <p><strong>Prix charges :</strong> <?php echo $demande['prix_charges']; ?></p>
-       <br><br>
+      <br>
         <p><strong>Total mensuel :</strong> <?php echo $totaux_par_appartement; ?></p>
         <p><Details>Locataire
         <p><strong>Numéro locataire :</strong> <?php echo $demande['num_loc']; ?></p>
@@ -39,7 +37,6 @@ include '../C/c_TB_Prop.php';
     </div>
 <?php endforeach; ?>
 
-<!-- Assurez-vous que $total_mensuel est défini -->
 <p><strong>Total mensuel :</strong> <?php echo $total_mensuel; ?></p>
 
 </div>

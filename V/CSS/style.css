@@ -1,31 +1,20 @@
 
+
+
+/* _________________________________________________________Styles pour header_____________________________________________________________*/
 body {
-    background: linear-gradient(#596a99ff, pink); /* Applique le dégradé au corps entier */
+    background: linear-gradient(rgb(255, 255, 255),#ba8a5f); /* Applique le dégradé au corps entier */
     background-size: cover; /* Couvre entièrement le fond */
     background-repeat: no-repeat; /* Empêche la répétition du fond */
 }
 
-.container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    
-}
+
 
 .header-image_index {
     width: 100%;
     height: 350px;
-    border: 2px solid rgb(255, 255, 255);
-    box-sizing: border-box;
     margin-top: 10px; /* Ajoute un espace de 10 pixels en haut de l'image */
-}
-.header-container {
-    width: 80%;
-    text-align: center;
-}
-.presentation p {
-    font-family: "Arial", sans-serif;
-    font-size: 20px; /* Augmente la taille de police des paragraphes à 20 pixels */
+  
 }
 
 
@@ -34,7 +23,7 @@ body {
     font-size: 20px;
     padding: 10px 25px;
     border-radius: 0.7rem;
-    background-image: linear-gradient(rgb(212, 206, 235), #596a99ff);
+    background-image: linear-gradient(#d8af89, #7d4d2d);
     border: 2px solid rgb(255, 255, 255);
     border-bottom: 2px solid  rgb(255, 255, 255);
     box-shadow: 0px 1px 3px 0px #ffffff;
@@ -49,31 +38,149 @@ body {
   transform: translate(0, 0);
   border-bottom: 2px solid rgb(255, 255, 255);
 }
+
+
+
+/* _________________________________________________________Styles pour header_____________________________________________________________*/
+
+
+
+
+
+
+/* ______________________________________________________Styles pour les icones et text_____________________________________________________ */
+
+
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+
+
+
+.header-container {
+    width: 80%;
+    text-align: center;
+}
+
 h1 {
-    font-size: 24px; /* Taille de police */
+    font-size: 30px; /* Taille de police */
     margin-left: auto; /* Marge à gauche */
     margin-right: auto; /* Marge à droite */
     width: 80%; /* Largeur maximale */
     text-align: left ;/* Centrage du texte */
     margin-top: 20px; /* Marge en haut */
     margin-bottom: 10px; /* Marge en bas */
+    text-align: center;
+    color:#462a17;
 }
-
-/* Styles pour les éléments p */
 .p1 {
     font-family: "Arial", sans-serif;
-    font-size: 16px; /* Taille de police */
+    font-size: 19px; /* Taille de police */
     margin-left: auto; /* Marge à gauche */
     margin-right: auto; /* Marge à droite */
     width: 80%; /* Largeur maximale */
     margin-top: 10px; /* Marge en haut */
-    margin-bottom: 10px; /* Marge en bas */
+    margin-bottom: 40px; /* Marge en bas */
     text-align: left; /* Justification du texte */
+    color: rgb(15, 15, 15);
+    background-color:#bf9571a4;
+    border-radius: 10px;
+    
 }
-.flex-container {
+.p2 {
+    font-family: "Arial", sans-serif;
+    font-size: 25px; /* Taille de police */
+}
+
+.image-container {
     display: flex;
-    align-items: center; 
+    justify-content: space-around; /* Pour espacer également les images */
+    margin-left: 20px;
 }
+
+.image-wrapper {
+    flex: 1; /* Pour que les images occupent une part égale de l'espace disponible */
+    position: relative; /* Permet de positionner les éléments enfants de manière absolue par rapport à ce conteneur */
+    text-align: center; /* Pour centrer le contenu */
+    margin-bottom: 50px; /* Espacement entre chaque image */
+    background-color: #ffffff5b;
+    margin-right: 13px; /* Marge à droite */
+}
+
+
+
+.sous-titre {
+    color: rgb(0, 0, 0); /* Couleur du texte pour le titre */
+    font-weight: bold; /* Pour mettre en gras le titre */
+    margin-bottom: 0; /* Espacement entre le titre et la description */
+    margin-left: auto; /* Marge à gauche */
+    margin-right: auto; /* Marge à droite */
+}
+
+.square {
+    background-color: transparent;
+    padding: 20px;
+    border-radius: 5px;
+}
+.description {
+    color: black; /* Couleur du texte pour la description */
+    text-align: justify; /* Justifie le texte */
+    margin-left: 20%; /* Marge à gauche */
+    margin-right: 20%;
+    margin-top: 2px;
+    
+}
+ 
+.image-wrapper img {
+    max-width: 150px; /* Définir une largeur maximale pour les images */
+}
+
+.centered-content {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            margin-left: auto; /* Marge à gauche */
+    margin-right: auto; /* Marge à droite */
+        }
+        .presentation{
+            color: black; /* Couleur du texte pour la description */
+            text-align: center; 
+            font-weight: bold;
+            padding: 20px;
+            font-size: 30px; 
+            font-family: "Times New Roman";
+        }
+/* ______________________________________________________FIN Styles pour les icones et text_____________________________________________________ */
+
+
+  /* _______________________________________________________Styles pour le pied de page ________________________________________________*/
+  .footer {
+    background-color: #462a16;
+    color: #fff;
+    text-align: center;
+    padding: 20px 0;
+ 
+    bottom: 0;
+    width: 100%;
+}
+
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.footer-content p {
+    margin: 0;
+}
+/* _______________________________________________________FIN Styles pour le pied de page ________________________________________________*/
+
 
 .formInscPRop {
     width: 25%; /* Ajustez la largeur selon vos besoins */
@@ -81,7 +188,7 @@ h1 {
     padding: 20px;
     border: 1px solid #ffffff;
     border-radius: 5px;
-    background-color: #596a99ff;
+    background: linear-gradient(to bottom, #ba8a5f, #6b401f); /* Ajout du dégradé */
 }
 
 /* Style des titres */
@@ -114,10 +221,7 @@ h1 {
     justify-content: center;
 }
 
-.retourBTN {
-    display: flex;
-    justify-content: flex-start;
-}
 .autres-boutons button {
-    margin: 0 10px; /* Ajoute un espace de 10 pixels à gauche et à droite de chaque bouton */
+    margin: 0 10px; 
 }
+

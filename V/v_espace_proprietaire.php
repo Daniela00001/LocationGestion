@@ -31,7 +31,7 @@ if(isset($_SESSION["proprietaire"])) {
    
      
     <header class="header-container">
-        <img src="images/HD-wallpaper-artistic-city-light-scenery.jpg" alt="En-tête du site" class="header-image_index" width="100%" height="250px">
+        <img src="images/wsfgsr.png" alt="En-tête du site" class="header-image_index" width="100%" height="250px">
         
     </header>
 </body>

@@ -15,22 +15,24 @@ if(isset($_SESSION["demandeur"])) {
     <link rel="stylesheet" href="CSS/styleSessionDem.css">
 </head>
 <body>
-
-<div class="navbar">
+    
+<nav>
+    <div class="navbar">
     <a href="v_home_demandeur.php">Accueil</a>
     <a href="v_annonces_dem.php">Annonces</a>
     <a href="v_visites_demandeur.php">Visites</a>
     <a href="v_demandes_Demandeur.php">Demandes</a>
     <a href="v_profil_demandeur.php">Profil</a>
-    
-
     <a href="#" onclick="openModal()">&#128269;</a>
-    <div class="doite login-info">
-        <?php echo $login_demandeur; ?>
-        <form method="post" action="../C/c_connexionD.php" class="form-deconnexion">
-            <input type="submit" name="deconnexion" value="Déconnexion" class="btn-deconnexion">
+   <div class="haut1">  <?php echo $login_demandeur; ?></div>
+   <form method="post" action="../C/c_connexionD.php" class="haut">
+   <input type="submit" name="deconnexion" value="Déconnexion" class="btn-deconnexion">
         </form>
-    </div>
+        
+    </nav>
+   
+
+    
 </div>
 
 <div id="modal" class="modal">
@@ -61,8 +63,7 @@ if(isset($_SESSION["demandeur"])) {
 </div>
 
 <header class="header-container">
-        <img src="images/HD-wallpaper-artistic-city-light-scenery.jpg" alt="En-tête du site" class="header-image_index" width="100%" height="250px">
-        
+<img src="images/wsfgsr.png" alt="En-tête du site" class="header-image_index" width="100%" height="250px">
     </header>
 
 </body>
@@ -116,86 +117,3 @@ if(isset($_SESSION["demandeur"])) {
 
 
 </script>
-
-<style>
-
-/* Style de la modal */
-.modal {
-    display: none; /* Par défaut, cache la modal */
-    position: fixed; /* Position fixe pour rester au-dessus du contenu */
-    z-index: 1; /* Place la modal au-dessus de tout le reste */
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto; /* Ajoute un défilement si le contenu est trop grand */
-    background-color: rgba(0,0,0,0.4); /* Fond semi-transparent pour assombrir le contenu en arrière-plan */
-}
-
-/* Style du contenu de la modal */
-.modal-content {
-    background-color: #f9f9f9;
-    margin: auto; /* Centre la modal horizontalement */
-    position: absolute;
-    left: 50%;
-    top: 30%; /* Ajustez cette valeur pour déplacer la modal plus haut */
-    transform: translate(-50%, -50%); /* Centre la modal verticalement */
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-    width: 80%;
-    max-width: 600px; /* Largeur maximale de la modal */
-}
-
-/* Style pour le bouton de fermeture */
-.close {
-    color: #aaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-}
-
-.close:hover,
-.close:focus {
-    color: black;
-    text-decoration: none;
-    cursor: pointer;
-}
-
-/* Style pour les labels */
-label {
-    margin-top: 10px;
-    display: block;
-    font-weight: bold;
-}
-
-/* Style pour les inputs */
-input[type=text], input[type=number], select {
-    width: 100%;
-    padding: 10px;
-    margin: 8px 0;
-    box-sizing: border-box;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 16px;
-}
-
-/* Style pour le bouton de recherche */
-button {
-    background-color: #7d26cd;
-    color: white;
-    padding: 15px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-    margin-top: 20px;
-    width: 100%;
-}
-
-button:hover {
-    background-color: #596a99ff;
-}
-
-
-</style>

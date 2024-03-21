@@ -17,7 +17,7 @@
     <main>
         <div class="container">
             <header class="header-container">
-                <img src="images/7RuV.gif" alt="En-tête du site" class="header-image_index">
+                <img src="images/abstra.png" alt="En-tête du site" class="header-image_index">
                 <div class="header-text">
                     <section class="presentation">
                         <p>Rejoignez la communauté Dwell dès aujourd'hui et laissez-nous vous aider à trouver votre prochain chez-vous !</p>

@@ -12,8 +12,8 @@ if (isset($_SESSION["locataire"])) {
     // Exécuter la requête SQL pour récupérer toutes les informations nécessaires
     $infos_locataire_appartement = $locataire->getContratLoc($num_loc);
     $total_a_payer = $locataire->getTotalAPayer($num_loc);
-    // Charger la vue pour afficher les informations
-   
+    
+    
 } else {
     // Si le locataire n'est pas connecté, redirigez-le vers la page de connexion ou affichez un message d'erreur
     header("Location: chemin_vers_page_de_connexion.php");

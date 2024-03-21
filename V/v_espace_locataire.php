@@ -1,11 +1,13 @@
 <?php
-include '../C/c_connexionL.php';
+
 @session_start();
 if(isset($_SESSION["locataire"])) {
     $locataire = $_SESSION["locataire"];
     $login_loc = $locataire["login_loc"];
 }
-?><!DOCTYPE html>
+?>
+
+<!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
@@ -27,7 +29,7 @@ if(isset($_SESSION["locataire"])) {
    
      
     <header class="header-container">
-        <img src="images/HD-wallpaper-artistic-city-light-scenery.jpg" alt="En-tête du site" class="header-image_index" width="100%" height="250px">
+        <img src="images/wsfgsr.png" alt="En-tête du site" class="header-image_index" width="100%" height="250px">
         
     </header>
 </body>

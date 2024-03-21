@@ -57,7 +57,11 @@ class DemandeLocation {
         global $conn;
 
         try {
-            $sql = "SELECT * FROM demandes WHERE num_dem = :num_dem";
+            $sql = "SELECT *
+            FROM demandes
+            WHERE num_dem = :num_dem
+            AND num_apart NOT IN (SELECT num_apart FROM locataire WHERE num_dem = :num_dem);
+            ";
             
             $stmt = $conn->prepare($sql);
             $stmt->bindParam(':num_dem', $num_dem);

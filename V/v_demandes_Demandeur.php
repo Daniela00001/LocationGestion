@@ -1,6 +1,4 @@
 <?php 
-session_start(); 
-
 include 'v_espace_demandeur.php';
 include '../C/c_demandesDemandeur.php'; 
 ?>

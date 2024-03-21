@@ -115,9 +115,13 @@ class Locataire {
     public function getMdpLoc() {
         return $this->mdp_loc;
     }
-    
+   
     public function getNumDem() {
         return $this->num_dem;
+    }
+
+    public function  getNumApart() {
+        return $this->num_apart;
     }
     
     public function setNumLoc($num_loc) {
@@ -169,7 +173,7 @@ class Locataire {
     
     // Méthode pour vérifier l'existence d'un locataire en fonction du login et du mot de passe
     public function verifierLocataire($login, $mdp) {
-        global $conn; // Utilise la connexion à la base de données définie dans le fichier param_connexion_BdD.php
+        global $conn; 
         
         $query = "SELECT * FROM locataire WHERE login_loc = :login_loc AND mdp_loc = :mdp_loc";
         $stmt = $conn->prepare($query); // Prépare une requête SQL SELECT
@@ -179,7 +183,27 @@ class Locataire {
 
         return $stmt->fetch(PDO::FETCH_ASSOC); // Renvoie les résultats de la requête sous forme d'array associatif
     }
-
+    public function verifLoc() {
+        global $conn;
+    
+        try {
+            // Vérifie si un locataire existe déjà pour ce demandeur
+            $sql_check = "SELECT COUNT(*) FROM locataire 
+                          WHERE num_dem = :num_dem";
+                          
+            $stmt_check = $conn->prepare($sql_check);
+            $stmt_check->bindParam(':num_dem', $this->num_dem);
+           
+            $stmt_check->execute();
+            $existing_locataires = $stmt_check->fetchColumn();
+    
+            return $existing_locataires > 0;
+        } catch (PDOException $e) {
+            // Ajoutez des messages de débogage ici
+            error_log('Erreur lors de la vérification des locataires : ' . $e->getMessage());
+            return false;
+        }
+    }
     public static function getLocataireById($num_loc) {
         global $conn;
     
@@ -190,57 +214,39 @@ class Locataire {
     
         $locataire = $stmt->fetch(PDO::FETCH_ASSOC);
     
-        if ($locataire) {
-            $locataireObj = new Locataire(
-                $locataire['nom_loc'],
-                $locataire['prenom_loc'],
-                $locataire['date_naissance'],
-                $locataire['telephone_loc'],
-                $locataire['numCompt_loc'],
-                $locataire['banque'],
-                $locataire['adresse_banque_loc'],
-                $locataire['cp_banque_loc'],
-                $locataire['login_loc'],
-                $locataire['mdp_loc'],
-                $locataire['num_apart'],
-                $locataire['num_dem']
-            );
-            $locataireObj->setNumLoc($locataire['num_loc']);
-            return $locataireObj;
-        } else {
-            return null; // Ajustement si aucun locataire correspondant n'est trouvé
-        }
+       
     }
+
     public function updateInfo() {
         global $conn;
-    
+
         try {
             $sql = "UPDATE locataire 
-                    SET nom_loc = :nom_loc, 
-                        prenom_loc = :prenom_loc, 
-                        date_naissance = :date_naissance, 
-                        telephone_loc = :telephone_loc, 
-                        numCompt_loc = :numCompt_loc, 
-                        banque = :banque, 
-                        adresse_banque_loc = :adresse_banque_loc, 
-                        cp_banque_loc = :cp_banque_loc, 
-                        login_loc = :login_loc, 
-                        mdp_loc = :mdp_loc 
-                    WHERE num_loc = :num_loc";
-    
+            SET nom_loc = :nom_loc, 
+                prenom_loc = :prenom_loc, 
+                date_naissance = :date_naissance, 
+                telephone_loc = :telephone_loc, 
+                numCompt_loc = :numCompt_loc, 
+                banque = :banque, 
+                adresse_banque_loc = :adresse_banque_loc, 
+                cp_banque_loc = :cp_banque_loc, 
+                login_loc = :login_loc, 
+                mdp_loc = :mdp_loc 
+            WHERE num_loc = :num_loc";
+
             $stmt = $conn->prepare($sql);
-            $stmt->bindParam(':nom_loc', $this->getNomLoc());
-            $stmt->bindParam(':prenom_loc', $this->getPrenomLoc());
-            $stmt->bindParam(':date_naissance', $this->getDateNaissance());
-            $stmt->bindParam(':telephone_loc', $this->getTelephoneLoc());
-            $stmt->bindParam(':numCompt_loc', $this->getNumComptLoc());
-            $stmt->bindParam(':banque', $this->getBanque());
-            $stmt->bindParam(':adresse_banque_loc', $this->getAdresseBanqueLoc());
-            $stmt->bindParam(':cp_banque_loc', $this->getCpBanqueLoc());
-            $stmt->bindParam(':login_loc', $this->getLoginLoc());
-            $stmt->bindParam(':mdp_loc', $this->getMdpLoc());
-            $stmt->bindParam(':num_loc', $this->getNumLoc());
-    
+            $stmt->bindParam(':nom_loc', $this->nom_loc);
+            $stmt->bindParam(':prenom_loc', $this->prenom_loc);
+            $stmt->bindParam(':date_naissance', $this->date_naissance);
+            $stmt->bindParam(':telephone_loc', $this->telephone_loc);
+            $stmt->bindParam(':numCompt_loc', $this->numCompt_loc);
+            $stmt->bindParam(':banque', $this->banque);
+            $stmt->bindParam(':adresse_banque_loc', $this->adresse_banque_loc);
+            $stmt->bindParam(':cp_banque_loc', $this->cp_banque_loc);
+            $stmt->bindParam(':login_loc', $this->login_loc);
+            $stmt->bindParam(':mdp_loc', $this->mdp_loc);
+            $stmt->bindParam(':num_loc', $this->num_loc);
+
             $stmt->execute();
     
             return true;
@@ -249,6 +255,9 @@ class Locataire {
             return false;
         }
     }
+  
+
+    
     
     
     public function getContratLoc($num_loc) {

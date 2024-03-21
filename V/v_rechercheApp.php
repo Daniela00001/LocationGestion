@@ -1,7 +1,9 @@
 
-
 <?php
 include 'v_espace_demandeur.php';
+include '../C/c_annoncesDemandeur.php';
+@session_start();
+$demandeur = $_SESSION["demandeur"];
 
 // Vérifier si des annonces sont disponibles dans l'URL
 if(isset($_GET["annonces"])) {
@@ -24,8 +26,26 @@ if(isset($_GET["annonces"])) {
             echo "<p>Ascenseur: " . ($appartement['elevator'] ? 'Oui' : 'Non') . "</p>";
             echo "<p>Préavis: " . $appartement['preavis'] . "</p>";
             echo "<p>Date disponible: " . $appartement['date_libre'] . "</p>";
+
+
+
+            echo '<button type="button" onclick="submitDemande(' . $appartement['num_apart'] . ')">Louer</button>';
+            echo '<button type="button" id="button_visiter_' . $appartement['num_apart'] . '" style="display: inline-block;" onclick="toggleForm(\'form_' . $appartement['num_apart'] . '\', \'button_visiter_' . $appartement['num_apart'] . '\', \'close_' . $appartement['num_apart'] . '\')">Visiter</button>';
+            echo '<span class="close" id="close_' . $appartement['num_apart'] . '" onclick="closeForm(\'form_' . $appartement['num_apart'] . '\', \'button_visiter_' . $appartement['num_apart'] . '\', \'close_' . $appartement['num_apart'] . '\')" style="display: none;">&times;</span>';
+           
+            echo '<form action="../C/c_visites.php" method="post" id="form_' . $appartement['num_apart'] . '" style="display:none;">';
+    echo '   <input type="hidden" name="num_apart" value="' . $appartement['num_apart'] . '">';
+    echo '   <input type="hidden" name="num_dem" value="' . $demandeur['num_dem'] . '">';
+    echo '   <label for="date_visite">Date de visite :</label>';
+    echo '   <input type="date" name="date_visite" required>';
+    echo '   <button type="button" onclick="submitForm(' . $appartement['num_apart'] . ', \'enregistrer\')">Valider</button>';
+    echo '   <button type="button" onclick="clearDate(' . $appartement['num_apart'] . ')">Annuler</button>';
+    // Ajout de la balise div pour les messages d'alerte
+    echo '   <div id="message_' . $appartement['num_apart'] . '"></div>';
+    echo '</form>';
+
+
             echo "</div>";
-        
         }
         echo "</div>";
     } else {
@@ -36,25 +56,93 @@ if(isset($_GET["annonces"])) {
     // Aucune donnée d'annonce n'a été transmise
     echo "<h3>Aucune annonce trouvée.</h3>";
 }
+
 ?>
-<style>
-   
-   .annonce {
-       background-color: beige;
-       border-radius: 5px;
-       padding: 20px;
-       margin-bottom: 20px;
-     
-   }
+<script>
+function submitForm(num_apart, action) {
+    var form = document.getElementById('form_' + num_apart);
+    var formData = new FormData(form);
+    
+    formData.append('action', action);
+    
+    var xhr = new XMLHttpRequest();
+    
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+            var messageContainer = document.getElementById('message_' + num_apart);
+            messageContainer.innerHTML = '<p>' + xhr.responseText + '</p>';
+            
+            if (xhr.responseText.includes('enregistrée avec succès') || xhr.responseText.includes('supprimée avec succès')) {
+                messageContainer.style.color = 'green';
+                // Affiche le bouton OK
+                document.getElementById('button_ok_' + num_apart).style.display = 'block';
+            } else {
+                messageContainer.style.color = 'red';
+            }
+        }
+    };
+    
+    xhr.open('POST', form.action, true);
+    xhr.send(formData);
+}
 
-   .annonce-container p {
-       margin: 5px 0;
-       color: black;
-       width: 20%;
-   }
+function toggleForm(formId, buttonId, closeId) {
+    var form = document.getElementById(formId);
+    var button = document.getElementById(buttonId);
+    var close = document.getElementById(closeId);
 
-   .annonce-container h3 {
-       margin-top: 0;
-       color: black;
-   }
-</style>
+    if (form.style.display === 'none') {
+        // Affiche le formulaire
+        form.style.display = 'block';
+        // Masque le bouton "Visiter"
+        button.style.display = 'none';
+        // Affiche la croix
+        close.style.display = 'inline-block';
+    } else {
+        // Masque le formulaire
+        form.style.display = 'none';
+        // Affiche le bouton "Visiter"
+        button.style.display = 'inline-block';
+        // Masque la croix
+        close.style.display = 'none';
+    }
+}
+
+function closeForm(formId, buttonId, closeId) {
+    var form = document.getElementById(formId);
+    var button = document.getElementById(buttonId);
+    var close = document.getElementById(closeId);
+
+    // Masque le formulaire
+    form.style.display = 'none';
+    // Affiche le bouton "Visiter"
+    button.style.display = 'inline-block';
+    // Masque la croix
+    close.style.display = 'none';
+}
+
+function clearDate(num_apart) {
+    var dateInput = document.querySelector('form#form_' + num_apart + ' input[name="date_visite"]');
+    dateInput.value = ''; // Efface la date entrée par l'utilisateur
+}
+
+function submitDemande(num_apart) {
+    var formData = new FormData();
+    formData.append('num_dem', <?php echo $demandeur['num_dem']; ?>); // ID du demandeur connecté
+    formData.append('num_apart', num_apart); // ID de l'appartement choisi
+    
+    var xhr = new XMLHttpRequest();
+    
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+            // Afficher un message de succès ou d'erreur, ou rafraîchir la page
+            alert(xhr.responseText); // Remplacez alert par votre propre méthode d'affichage
+            // Si succès, peut-être actualiser la page pour refléter les changements dans la liste des annonces
+            window.location.reload();
+        }
+    };
+    
+    xhr.open('POST', '../C/c_demandesDemandeur.php', true);
+    xhr.send(formData);
+}
+</script>

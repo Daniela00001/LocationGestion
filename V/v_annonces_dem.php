@@ -6,6 +6,7 @@ $demandeur = $_SESSION["demandeur"];
 
 echo '<div id="annonces-container">';
 
+
 foreach ($annonces as $annonce) {
     echo '<div class="annonce" id="annonce_' . $annonce['num_apart'] . '">';
     echo '<h3>Numéro d\'appartement : ' . $annonce['num_apart'] . '</h3>';
@@ -129,73 +130,3 @@ function submitDemande(num_apart) {
     xhr.send(formData);
 }
 </script>
-<style>
-   
-    #annonces-container {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-between;
-        gap: 20px;
-        margin-top: 20px;
-    }
-
-    .annonce {
-        border: 1px solid #ccc;
-        border-radius: 5px;
-        padding: 20px;
-        width: calc(25% - 40px); /* Ajustez la largeur des annonces en fonction de vos besoins */
-        box-sizing: border-box;
-        position: relative;
-        margin-bottom: 20px; /* Ajout de marge en bas pour l'espace entre les annonces */
-    }
-
-    .annonce h3 {
-        font-size: 18px;
-        font-weight: bold;
-        margin-bottom: 10px;
-    }
-
-    .annonce p {
-        margin: 5px 0;
-    }
-
-    .annonce button {
-        padding: 8px 20px;
-        background-color: #007bff;
-        color: #fff;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        margin-top: 10px;
-    }
-
-    .annonce button:hover {
-        background-color: #0056b3;
-    }
-
-    .annonce form {
-        margin-top: 10px;
-    }
-
-    .annonce form label {
-        display: block;
-        margin-bottom: 5px;
-    }
-
-    .annonce form input[type="date"] {
-        width: 100%;
-        padding: 5px 10px;
-        margin-bottom: 10px;
-        border: 1px solid #ccc;
-        border-radius: 3px;
-        box-sizing: border-box;
-    }
-
-    .annonce .close {
-        position: absolute;
-        top: 5px;
-        right: 5px;
-        cursor: pointer;
-    }
-</style>
-

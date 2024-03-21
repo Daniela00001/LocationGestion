@@ -1,7 +1,7 @@
 <?php
 
 require '../M/Class Demande.php';
-
+@session_start();
 $demandeur = $_SESSION["demandeur"];
 
 $demandes = DemandeLocation::getDemandesLocationDemandeur($demandeur['num_dem']);

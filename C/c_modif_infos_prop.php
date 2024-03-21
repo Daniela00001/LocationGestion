@@ -37,11 +37,7 @@ if (isset($_POST['update'])) {
     if ($success) {
         echo "Mise à jour réussie!";
 
-        // Actions supplémentaires après la mise à jour réussie
-        // Exemple : Destruction de la session
         session_destroy();
-
-        // Réinitialisation de la session avec les nouvelles données du propriétaire
         session_start();
         $_SESSION["proprietaire"] = Proprietaire::getProprietaireById($num_prop);
 

@@ -32,45 +32,5 @@ echo '</div>';
 ?>
 <br>
 <style>
-#visites-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-}
 
-.visite {
-    background-color: #f9f9f9;
-    border: 1px solid #ddd;
-    padding: 20px;
-    border-radius: 10px;
-    width: calc(20% - 10px); /* Pour afficher 3 éléments par ligne avec un espacement de 20px */
-}
-
-.visite h3 {
-    margin-top: 0;
-    font-size: 18px;
-    font-weight: bold;
-}
-
-.visite p {
-    margin-bottom: 10px;
-}
-
-.visite form {
-    display: inline-block;
-}
-
-.visite button {
-    background-color: purple;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    padding: 10px 20px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-.visite button:hover {
-    background-color: #7d26cd;
-}
 </style>

@@ -6,21 +6,14 @@ include 'v_espace_demandeur.php';
     if (isset($_SESSION["demandeur"])) {
         $demandeurInfos = $_SESSION["demandeur"];
         
-        // Vérifie si les données du demandeur ont été mises à jour
         $demandeur_data = isset($demandeur_data) ? $demandeur_data : $demandeurInfos;
-
         ?>
         <br>
         <br>
-          
-         
-        
-       
-  
-
 <link rel="stylesheet" href="CSS/styleSessionDem.css">
    
 <h2>Inscription Locataire</h2>
+<div class="center-container">
 <form id="inscription_locataire_form" action="../C/c_inscription_locataire.php" method="post">      
     <label for="nom_loc">Nom :</label>
     <input type="text" id="nom_loc" name="nom_loc" required>
@@ -52,65 +45,21 @@ include 'v_espace_demandeur.php';
     <label for="mdp_loc">Mot de passe :</label>
     <input type="password" id="mdp_loc" name="mdp_loc" required>
 
-    <input type="text" name="num_apart" value="<?php echo isset($_POST['num_apart']) ? $_POST['num_apart'] : (isset($_SESSION['num_apart']) ? $_SESSION['num_apart'] : ''); ?>">
+    <input type="hidden" name="num_apart" value="<?php echo isset($_POST['num_apart']) ? $_POST['num_apart'] : (isset($_SESSION['num_apart']) ? $_SESSION['num_apart'] : ''); ?>">
 
-<input type="text" name="num_dem" value="<?php echo $demandeur_data['num_dem']; ?>">
+<input type="hidden" name="num_dem" value="<?php echo $demandeur_data['num_dem']; ?>">
 <?php
     }
     ?>
-
-<div class="autres-boutons">
+<?php
+// Affichage du message d'erreur s'il est défini dans la session
+if (isset($_SESSION['erreur'])) {
+    echo '<div class="alert alert-danger">' . $_SESSION['erreur'] . '</div>';
+    unset($_SESSION['erreur']); // Supprime le message d'erreur de la session après l'avoir affiché
+}
+?>
+<div class="autres-bouttons">
 <button type="submit">S'inscrire</button>
 </div>
+</div>
 </form>
-
-<style>
-    .container {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh; /* Pour centrer verticalement sur toute la hauteur de la page */
-    }
-
-    form {
-        width: 50%; /* Ajustez la largeur selon vos besoins */
-        padding: 20px;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-        color: purple; /* Couleur violette */
-    }
-
-    form label {
-        display: block;
-        margin-bottom: 5px;
-    }
-
-    form input[type="text"],
-    form input[type="date"],
-    form input[type="tel"],
-    form input[type="password"] {
-        width: 100%;
-        padding: 8px;
-        margin-bottom: 10px;
-        border: 1px solid #ccc;
-        border-radius: 3px;
-        box-sizing: border-box;
-    }
-
-    .autres-boutons {
-        text-align: center;
-    }
-
-    .autres-boutons button {
-        padding: 10px 20px;
-        background-color: #007bff;
-        color: #fff;
-        border: none;
-        border-radius: 3px;
-        cursor: pointer;
-    }
-
-    .autres-boutons button:hover {
-        background-color: #0056b3;
-    }
-</style>

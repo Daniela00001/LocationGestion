@@ -1,7 +1,7 @@
 <?php include 'v_espace_demandeur.php'; ?>
 
 <body>
-
+<link rel="stylesheet" href="CSS/styleSessionDem.css">
 <div class="about-us">
     <h1>Qui sommes-nous?</h1>
 
@@ -34,54 +34,3 @@
 </div>
 
 </body>
-<style>
-    body {
-        font-family: 'Arial', sans-serif;
-        margin: 0;
-        padding: 0;
-        background-color: #f4f4f4;
-    }
-
-    .about-us {
-        max-width: 1600px; /* Limitez la largeur pour éviter que le contenu ne devienne trop étiré */
-        margin: 50px auto 30px; /* Ajoutez plus de marge en bas */
-        background-color: #fff;
-        padding: 20px;
-        border-radius: 10px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        text-align: left;
-    }
-
-    h1, h2 {
-        color: #333;
-        text-align: left;
-    }
-
-    h1 {
-        border-bottom: 2px solid #333;
-        padding-bottom: 10px;
-    }
-
-    p {
-        color: #333;
-        line-height: 1.6;
-        margin-bottom: 15px;
-        border: 1px solid #ccc;
-        padding: 10px;
-        background-color: #f5f5dc;
-        border-radius: 5px;
-    }
-
-    ul {
-        list-style-type: none;
-        padding: 0;
-    }
-
-    li {
-        margin-bottom: 10px;
-    }
-
-    strong {
-        color: #555;
-    }
-</style>

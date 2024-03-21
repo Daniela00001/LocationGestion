@@ -5,7 +5,7 @@ body {
 
 .navbar {
     overflow: hidden;
-    background: linear-gradient(to bottom right,  #f7f7f7, #596a99ff);
+    background: linear-gradient(to bottom right,  #ba8a5f, #6b401f);
     text-align: center;
 }
 
@@ -22,34 +22,16 @@ body {
     background-color: #ddd;
     color: black;
 }
-.haut {
-    margin-left: 75%; 
-    margin-top: -35px;
-    margin-bottom: 10px;
-}
-.haut1 {
-    margin-left: 60%; 
-    margin-top: -30px;
-    margin-bottom: 15px;
+
+h1, h2 {
+    color: #854224;
+    text-align: center;
 }
 
-.haut input[type="submit"] {
-    background-color:linear-gradient(to bottom right,  #f7f7f7, #596a99ff);
-    color: rgb(0, 0, 0); /* Texte blanc */
-    border: none; /* Pas de bordure */
-    border-radius: 5px; /* Coins arrondis */
-    padding: 10px 20px; /* Espacement intérieur */
-    cursor: pointer; /* Curseur pointer */
-    transition: background-color 0.3s; /* Transition fluide */
+h1 {
+    border-bottom: 2px solid #333;
+    padding-bottom: 10px;
 }
-
-/* Hover */
-.haut input[type="submit"]:hover {
-    background-color: #7d26cd; /* Changement de couleur au survol */
-}
-
-
-
 .about-us {
     max-width: 1600px; /* Limitez la largeur pour éviter que le contenu ne devienne trop étiré */
     margin: 50px auto 30px; /* Ajoutez plus de marge en bas */
@@ -60,125 +42,338 @@ body {
     text-align: left;
 }
 
-h1, h2 {
-    color: #333;
-    text-align: left;
-}
 
-h1 {
-    border-bottom: 2px solid #333;
-    padding-bottom: 10px;
+.haut {
+    margin-left: 65%; 
+    margin-top: -55px;
+    margin-bottom: 10px;
 }
-
-p {
-    color: #333;
-    line-height: 1.6;
+.haut1 {
+    margin-left: 60%; 
+    margin-top: -28px;
     margin-bottom: 15px;
+}
+
+
+#annonces-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.annonce {
     border: 1px solid #ccc;
-    padding: 10px;
-    background: linear-gradient(to bottom right,  #f7f7f7, #596a99ff);
     border-radius: 5px;
+    padding: 20px;
+    width: calc(25% - 40px); /* Ajustez la largeur des annonces en fonction de vos besoins */
+    box-sizing: border-box;
+    position: relative;
+    margin-bottom: 20px; /* Ajout de marge en bas pour l'espace entre les annonces */
 }
 
-ul {
-    list-style-type: none;
-    padding: 0;
-}
-
-li {
+.annonce h3 {
+    font-size: 18px;
+    font-weight: bold;
     margin-bottom: 10px;
 }
 
-strong {
-    color: #555;
+.annonce p {
+    margin: 5px 0;
+    
+
 }
 
+
+.custom-button {
+    padding: 8px 15px; /* Ajouter un remplissage intérieur */
+    background-color: #000000; /* Couleur de fond */
+    color: white; /* Couleur du texte */
+    border: none; /* Supprimer la bordure */
+    border-radius: 4px; /* Arrondir les coins */
+    cursor: pointer; /* Définir le curseur comme un pointeur au survol */
+    margin-left: 170px;
+    width: 30%;
+}
+
+.custom-button:hover {
+    background-color: #be2424; /* Changer la couleur de fond au survol */
+}
+
+.annonce button {
+    padding: 8px 20px;
+    background-color: #9b815b;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.annonce button:hover {
+    background-color: #0056b3;
+}
+
+.annonce form {
+    margin-top: 10px;
+}
+
+.annonce form label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.annonce form input[type="date"] {
+    width: 100%;
+    padding: 5px 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    box-sizing: border-box;
+}
+
+.annonce .close {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    cursor: pointer;
+}
+
+
+
+
+
+/* Style pour le conteneur des visites */
 #visites-container {
     display: flex;
     flex-wrap: wrap;
-    gap: 20px;
+    gap: 20px; /* Espacement entre les visites */
 }
 
+/* Style pour chaque visite */
 .visite {
-    background-color: #f9f9f9;
-    border: 1px solid #ddd;
-    padding: 20px;
-    border-radius: 10px;
-    width: calc(20% - 10px); /* Pour afficher 3 éléments par ligne avec un espacement de 20px */
+    width: calc(33.33% - 20px); /* Calcul pour occuper environ 1/3 de la largeur */
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
 }
 
+/* Style pour le titre de la visite */
 .visite h3 {
-    margin-top: 0;
-    font-size: 18px;
     font-weight: bold;
 }
 
-.visite p {
-    margin-bottom: 10px;
-}
-
+/* Style pour le formulaire de suppression */
 .visite form {
-    display: inline-block;
+    margin-top: 10px;
 }
 
-.visite button {
-    background-color: purple;
+/* Style pour le bouton de suppression */
+.visite form input[type="submit"] {
+    padding: 8px 15px;
+    background-color: #e7140c;
     color: white;
     border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.visite form input[type="submit"]:hover {
+    background-color: #d50a02; /* Change la couleur de fond au survol */
+}
+
+
+
+
+
+
+/* Style pour le conteneur des demandes */
+.demandes-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px; /* Espacement entre les demandes */
+}
+
+/* Style pour chaque demande */
+.demande {
+    width: calc(33.33% - 20px); /* Calcul pour occuper environ 1/3 de la largeur */
+    padding: 15px;
+    border: 1px solid #ccc;
     border-radius: 5px;
-    padding: 10px 20px;
-    cursor: pointer;
-    transition: background-color 0.3s;
+    box-sizing: border-box;
 }
 
-.visite button:hover {
-    background-color: #7d26cd;
+/* Style pour les titres des demandes */
+.demande p strong {
+    font-weight: bold;
 }
 
-.navbar {
-    overflow: hidden; 
+/* Style pour le formulaire de visualisation */
+.demande form {
+    margin-top: 10px;
 }
 
-.login-info,
-.form-deconnexion {
-float: right;
-margin-left: 10px; 
-color: white; 
-}
-
-.form-deconnexion .btn-deconnexion,
-.login-info a {
-    background-color: transparent;
+/* Style pour le bouton de visualisation */
+.demande form input[type="submit"] {
+    padding: 8px 15px;
+    background-color: #9b5a06;
+    color: white;
     border: none;
+    border-radius: 4px;
     cursor: pointer;
-    border-radius: 3px;
-    font-size: small;
 }
-.modal {
-        display: none;
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(255, 255, 255, 0.9);
-    }
 
-    .modal-content {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        padding: 20px;
-        background-color: white;
+.demande form input[type="submit"]:hover {
+    background-color: #2d5068; /* Change la couleur de fond au survol */
+}
+
+
+form input[type="text"],
+    form input[type="date"],
+    form input[type="tel"],
+    form input[type="password"] {
+        width: 50%;
+        padding: 8px;
+        margin-bottom: 10px;
         border: 1px solid #ccc;
-        border-radius: 5px;
+        border-radius: 3px;
+        box-sizing: border-box;
+        align-items: center;
+        text-align: center;
     }
 
-    .close {
-        position: absolute;
-        top: 10px;
-        right: 10px;
-        cursor: pointer;
-        font-size: 18px;
+    .autres-boutons {
+        text-align: center;
     }
+
+    .autres-boutons button {
+        padding: 10px 20px;
+        background-color: #8a5213;
+        color: #fff;
+        border: none;
+        border-radius: 3px;
+        cursor: pointer;
+        width: 15%;
+    }
+
+    .autres-bouttons button {
+        padding: 10px 20px;
+        background-color: #ac5c02;
+        color: #fff;
+        border: none;
+        border-radius: 3px;
+        cursor: pointer;
+        width: 15%;
+        align-items: center;
+    }
+    .autres-boutons button:hover {
+        background-color: #9dccff;
+    }
+
+    .container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh; /* Pour centrer verticalement sur toute la hauteur de la page */
+    }
+
+    form.haut {
+        width: 50%; 
+        padding: 20px;
+        color: rgb(128, 64, 27); /* Couleur violette */
+        align-items: center;
+        
+    }
+
+  
+/* Style pour centrer le contenu */
+.center-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* pour centrer verticalement */
+    margin-left: 20%;
+}
+.center-container form{
+    display: block;
+    justify-content: center;
+    align-items: center;
+}
+#inscription_locataire_form {
+    width: 50%; /* ajustez la largeur selon vos besoins */
+}
+
+input[type="submit"] {
+    padding: 10px 20px;
+    background-color: #693f0f;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+   
+}
+
+
+
+
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.9);
+}
+
+.modal-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    background-color: white;
+    border: 1px solid #b62d2d;
+    border-radius: 5px;
+}
+
+.close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+    font-size: 18px;
+}
+
+.profil-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-top: 30px;
+}
+.profil-container h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.profil-container label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.profil-container input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    text-align: left;
+}
