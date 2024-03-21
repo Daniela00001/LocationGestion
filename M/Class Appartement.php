@@ -14,7 +14,6 @@ class Appartement {
     protected $elevator;
     protected $preavis;
     protected $date_libre;
-    protected $image = [];
     protected $num_prop;
     protected $details;
     protected $sqlQuery;
@@ -304,6 +303,23 @@ class Appartement {
             return [];
         }
     }
+
+    public function recupAppart() {
+        global $conn; // Utilise la connexion à la base de données définie dans le fichier param_connexion_BdD.php
+    
+        try {
+            $sql = "SELECT * FROM appartement ";
+            $stmt = $conn->prepare($sql); // Prépare une requête SQL SELECT
+            $stmt->execute(); // Exécute la requête SQL
+            $annonces = $stmt->fetchAll(PDO::FETCH_ASSOC); // Récupère toutes les lignes de résultat sous forme d'un tableau associatif
+            return $annonces; // Retourne le tableau d'annonces
+        } catch (PDOException $e) {
+            echo "Erreur lors de la récupération des annonces : " . $e->getMessage(); // Affiche un message d'erreur en cas d'échec
+            return []; // Retourne un tableau vide
+        }
+    }
+    
+        
         
 }
 ?>
