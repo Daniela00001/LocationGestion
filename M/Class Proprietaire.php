@@ -108,38 +108,9 @@ class Proprietaire {
     public function setMdpProp($mdp_prop) {
         $this->mdp_prop = $mdp_prop;
     }
-    public function updateInfo() {
-        global $conn;
-
-        try {
-            $sql = "UPDATE proprietaire 
-                    SET nom_prop = :nom_prop, 
-                        prenom_prop = :prenom_prop, 
-                        adresse_prop = :adresse_prop, 
-                        cp_prop = :cp_prop, 
-                        telephone_prop = :telephone_prop, 
-                        login_prop = :login_prop, 
-                        mdp_prop = :mdp_prop 
-                    WHERE num_prop = :num_prop";
-
-            $stmt = $conn->prepare($sql);
-            $stmt->bindParam(':nom_prop', $this->nom_prop);
-            $stmt->bindParam(':prenom_prop', $this->prenom_prop);
-            $stmt->bindParam(':adresse_prop', $this->adresse_prop);
-            $stmt->bindParam(':cp_prop', $this->cp_prop);
-            $stmt->bindParam(':telephone_prop', $this->telephone_prop);
-            $stmt->bindParam(':login_prop', $this->login_prop);
-            $stmt->bindParam(':mdp_prop', $this->mdp_prop);
-            $stmt->bindParam(':num_prop', $this->num_prop);
-
-            $stmt->execute();
-
-            return true;
-        } catch (PDOException $e) {
-            echo "Erreur lors de la mise à jour : " . $e->getMessage();
-            return false;
-        }
-    }
+   
+    
+    
     public function supprimerProprietaire($num_prop) {
         global $conn; // Utilise la connexion à la base de données définie dans le fichier param_connexion_BdD.php
     
@@ -171,5 +142,52 @@ class Proprietaire {
         $stmt->execute();
         $count = $stmt->fetchColumn();
         return $count > 0;
+    }
+
+    public function updateInfo($num_prop, $nom_prop, $prenom_prop, $adresse_prop, $cp_prop, $telephone_prop, $login_prop, $mdp_prop) {
+        global $conn;
+    
+        try {
+            $sql = "UPDATE proprietaire 
+                    SET nom_prop = :nom_prop, 
+                        prenom_prop = :prenom_prop, 
+                        adresse_prop = :adresse_prop, 
+                        cp_prop = :cp_prop, 
+                        telephone_prop = :telephone_prop, 
+                        login_prop = :login_prop, 
+                        mdp_prop = :mdp_prop 
+                    WHERE num_prop = :num_prop";
+    
+            $stmt = $conn->prepare($sql);
+            $stmt->bindParam(':nom_prop', $nom_prop);
+            $stmt->bindParam(':prenom_prop', $prenom_prop);
+            $stmt->bindParam(':adresse_prop', $adresse_prop);
+            $stmt->bindParam(':cp_prop', $cp_prop);
+            $stmt->bindParam(':telephone_prop', $telephone_prop);
+            $stmt->bindParam(':login_prop', $login_prop);
+            $stmt->bindParam(':mdp_prop', $mdp_prop);
+            $stmt->bindParam(':num_prop', $num_prop);
+    
+            $stmt->execute();
+    
+            return true;
+        } catch (PDOException $e) {
+            echo "Erreur lors de la mise à jour : " . $e->getMessage();
+            return false;
+        }
+    }
+    public function recupProp() {
+        global $conn; // Utilise la connexion à la base de données définie dans le fichier param_connexion_BdD.php
+    
+        try {
+            $sql = "SELECT * FROM proprietaire ";
+            $stmt = $conn->prepare($sql); // Prépare une requête SQL SELECT
+            $stmt->execute(); // Exécute la requête SQL
+            $proprietaires = $stmt->fetchAll(PDO::FETCH_ASSOC); // Récupère toutes les lignes de résultat sous forme d'un tableau associatif
+            return $proprietaires; // Retourne le tableau d'annonces
+        } catch (PDOException $e) {
+            echo "Erreur lors de la récupération des annonces : " . $e->getMessage(); // Affiche un message d'erreur en cas d'échec
+            return []; // Retourne un tableau vide
+        }
     }
 }

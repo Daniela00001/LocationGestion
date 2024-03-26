@@ -43,11 +43,9 @@ if (isset($_SESSION["locataire"])) {
                 <label for="cp_banque_loc">Code postal de la banque:</label>
                 <input type="text" id="cp_banque_loc" name="cp_banque_loc" value="<?= $locataireInfos['cp_banque_loc'] ?>">
                 
-                <label for="login_loc">Login:</label>
-<input type="text" id="login_loc" name="login_loc" value="<?= $locataireInfos['login_loc'] ?>" readonly>
+                <input type="hidden" id="login_loc" name="login_loc" value="<?= $locataireInfos['login_loc'] ?>" readonly>
 
-<label for="mdp_loc">Mot de passe:</label>
-<input type="password" id="mdp_loc" name="mdp_loc" value="<?= $locataireInfos['mdp_loc'] ?>" readonly>
+                <input type="hidden" id="mdp_loc" name="mdp_loc" value="<?= $locataireInfos['mdp_loc'] ?>" readonly>
 
 
                 <input type="hidden" name="num_loc" value="<?= $locataireInfos['num_loc'] ?>">

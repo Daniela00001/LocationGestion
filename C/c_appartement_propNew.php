@@ -20,7 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     
         
-        $appartement = new Appartement($type_apart, $prix_loc, $prix_charges, $rue, $arrondissement, $etage, $elevator, $preavis, $date_libre, [], $num_prop,$details);
+        $appartement = new Appartement($type_apart, $prix_loc, $prix_charges, $rue, $arrondissement, $etage, $elevator, $preavis, $date_libre, $num_prop,$details);
         $insertion_reussie = $appartement->inscription();
         if ($insertion_reussie) {
             // Redirection vers la page v_annonces_visualiser_prop.php si l'insertion est réussie

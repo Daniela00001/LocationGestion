@@ -2,103 +2,136 @@
 include 'v_espace_proprietaire.php';
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="../CSS/styleSessionProp.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>Formulaire Appartement</title>
+    <style>
+        /* Ajoutez ici votre CSS personnalisé */
+    </style>
+    <script>
+        function validateForm() {
+            var prix_loc = document.getElementById("prix_loc").value;
+            if (isNaN(prix_loc) || prix_loc < 0 || prix_loc > 100000) {
+                alert("Le prix de location doit être un nombre positif et ne pas dépasser 100000 euros.");
+                return false;
+            }
+
+            return true;
+        }
+    </script>
 </head>
 <body>
     <h2>Ajouter un nouvel appartement</h2>
-    <form action="../C/c_appartement_propNew.php" method="post" enctype="multipart/form-data">
+    <form class="appartement-form" action="../C/c_appartement_propNew.php" method="post" enctype="multipart/form-data" onsubmit="return validateForm()">
         
-        <label for="type_apart">Type d'appartement:</label>
-        <input type="text" name="type_apart" required><br>
+        <label for="type_apart" class="appartement-label">Type d'appartement:</label>
+        <select name="type_apart" class="appartement-select" required>
+            <option value="Studio">Studio</option>
+            <option value="Maison">Maison</option>
+            <option value="Pantahouse">Pantahouse</option>
+            <option value="T1">T1</option>
+            <option value="T2">T2</option>
+        </select><br>
 
-        <label for="prix_loc">Prix de location:</label>
-        <input type="text" name="prix_loc" required><br>
+        <label for="prix_loc" class="appartement-label">Prix de location :</label>
+        <input type="number" id="prix_loc" name="prix_loc" min="0" max="100000" class="appartement-input" required><br>
 
-        <label for="prix_charges">Prix des charges:</label>
-        <input type="text" name="prix_charges"><br>
+        <label for="prix_charges" class="appartement-label">Prix des charges:</label>
+        <input type="number" name="prix_charges" min="0" class="appartement-input"><br>
 
-        <label for="rue">Rue:</label>
-        <input type="text" name="rue" required><br>
+        <label for="rue" class="appartement-label">Rue:</label>
+        <input type="text" name="rue" class="appartement-input" required><br>
 
-        <label for="arrondissement">Arrondissement:</label>
-        <input type="text" name="arrondissement"><br>
+        <label for="arrondissement" class="appartement-label">Arrondissement:</label>
+        <select name="arrondissement" class="appartement-select">
+            <?php
+                for ($arrondissement = 1; $arrondissement <= 20; $arrondissement++) {
+                    echo "<option value=\"$arrondissement\">$arrondissement</option>";
+                }
+            ?>
+        </select><br>
 
-        <label for="etage">Étage:</label>
-        <input type="text" name="etage"><br>
+        <label for="etage" class="appartement-label">Étage:</label>
+        <select name="etage" class="appartement-select">
+            <option value="0">Rez-de-chaussée</option>
+            <?php
+                for ($i = 1; $i <= 30; $i++) {
+                    echo "<option value=\"$i\">$i</option>";
+                }
+            ?>
+        </select><br>
 
-        <label for="elevator">Ascenseur:</label>
-<input type="radio" name="elevator" value="oui"> Oui
-<input type="radio" name="elevator" value="non" checked> Non<br>
+        <label for="elevator" class="appartement-label">Ascenseur:</label>
+        <input type="radio" name="elevator" value="oui" class="appartement-radio"> Oui
+        <input type="radio" name="elevator" value="non" checked class="appartement-radio"> Non<br>
 <br>
-<label for="preavis">Préavis:</label>
-<input type="radio" name="preavis" value="oui"> Oui
-<input type="radio" name="preavis" value="non" checked> Non<br>
+        <label for="preavis" class="appartement-label">Préavis:</label>
+        <input type="radio" name="preavis" value="oui" class="appartement-radio"> Oui (préavis de 3 mois)
+        <input type="radio" name="preavis" value="non" checked class="appartement-radio"> Non<br>
+<br>
+        <label for="date_libre" class="appartement-label">Date de disponibilité:</label>
+        <input type="date" id="date_libre" name="date_libre" min="<?php echo date('Y-m-d'); ?>" class="appartement-input" required><br>
 
+        <label for="details" class="appartement-label">Détails:</label>
+        <textarea name="details" class="appartement-textarea"></textarea><br>
 
-        <label for="date_libre">Date de disponibilité:</label>
-        <input type="date" name="date_libre"><br>
-
-        <label for="details">Details:</label>
-        <input type="text" name="details"><br>
-
-        <label for="image">Sélectionnez une image :</label>
-        <input type="file" name="image" id="image">
-        <div id="imagePreview"></div>
-
-
-
-        <input type="submit" value="Ajouter">
+        <input type="submit" value="Ajouter" class="appartement-submit">
     </form>
 </body>
 </html>
-
-
 <style>
-       
-        h2 {
-            color: #333;
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
         }
-        form {
+
+        .appartement-form {
+            max-width: 600px;
+            margin: 20px auto;
             background-color: #fff;
             padding: 20px;
-            border-radius: 5px;
-            box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
-            max-width: 500px;
-            margin: 20px auto;
+            border-radius: 8px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
         }
-        label {
+
+        .appartement-label {
             display: block;
             margin-bottom: 5px;
-            color: #555;
+            font-weight: bold;
         }
-        input[type="text"],
-        input[type="date"],
-        input[type="file"] {
-            width: calc(100% - 12px);
+
+        .appartement-input,
+        .appartement-select,
+        .appartement-textarea {
+            width: 100%;
             padding: 8px;
-            margin-bottom: 10px;
+            margin-bottom: 15px;
             border: 1px solid #ccc;
-            border-radius: 3px;
+            border-radius: 4px;
+            box-sizing: border-box;
         }
-        input[type="radio"] {
-            margin-right: 5px;
-            margin-bottom: 10px;
+
+        .appartement-radio {
+            margin-right: 10px;
         }
-       
-        input[type="submit"] {
-            background-color: #007bff;
-            color: #fff;
-            padding: 10px 20px;
+
+        .appartement-submit {
+            width: 100%;
+            padding: 10px;
+            background-color: #4caf50;
+            color: white;
             border: none;
-            border-radius: 3px;
+            border-radius: 4px;
             cursor: pointer;
+            font-size: 16px;
         }
-        input[type="submit"]:hover {
-            background-color: #0056b3;
+
+        .appartement-submit:hover {
+            background-color: #45a049;
         }
+
     </style>

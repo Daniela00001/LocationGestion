@@ -1,4 +1,3 @@
-
 <?php
 include 'v_espace_demandeur.php';
 
@@ -7,8 +6,8 @@ if (isset($_SESSION["demandeur"])) {
     
     // Vérifie si les données du demandeur ont été mises à jour
     $demandeur_data = isset($demandeur_data) ? $demandeur_data : $demandeurInfos;
+?>
 
-    ?>
     <div class="profil-container">
         <h2>Profil du demandeur</h2>
         <p>Numéro du demandeur: <?php echo $demandeur_data['num_dem']; ?></p>
@@ -18,20 +17,26 @@ if (isset($_SESSION["demandeur"])) {
             <input type="text" id="nom_dem" name="nom_dem" value="<?= $demandeur_data['nom_dem'] ?>" class="profil-input">
 
             <label for="prenom" class="profil-label">Prénom:</label>
-            <input type="text" id="prenom" name="prenom" value="<?= $demandeur_data['prenom_dem'] ?>" class="profil-input">
+            <input type="text" id="prenom" name="prenom_dem" value="<?= $demandeur_data['prenom_dem'] ?>" class="profil-input">
 
             <label for="adresse" class="profil-label">Adresse:</label>
-            <input type="text" id="adresse" name="adresse" value="<?= $demandeur_data['adresse_dem'] ?>" class="profil-input">
+            <input type="text" id="adresse" name="adresse_dem" value="<?= $demandeur_data['adresse_dem'] ?>" class="profil-input">
 
             <label for="cp" class="profil-label">Code postal:</label>
-            <input type="text" id="cp" name="cp" value="<?= $demandeur_data['cp_dem'] ?>" class="profil-input">
+            <input type="text" id="cp" name="cp_dem" value="<?= $demandeur_data['cp_dem'] ?>" class="profil-input">
 
             <label for="telephone" class="profil-label">Téléphone:</label>
-            <input type="text" id="telephone" name="telephone" value="<?= $demandeur_data['telephone_dem'] ?>" class="profil-input">
+            <input type="text" id="telephone" name="telephone_dem" value="<?= $demandeur_data['telephone_dem'] ?>" class="profil-input">
 
-            <input type="hidden" name="num_dem" value="<?= $demandeur_data['num_dem'] ?>">
-            <input type="submit" name="update" value="Mettre à jour" class="profil-submit">
-        </form>
+            <label for="login" class="profil-label">Login:</label>
+    <input type="text" id="login" name="login_dem" value="<?= $demandeur_data['login_dem'] ?>" class="profil-input">
+
+    <label for="mdp" class="profil-label">Mot de passe:</label>
+    <input type="password" id="mdp" name="mdp_dem" value="" class="profil-input">
+
+    <input type="hidden" name="num_dem" value="<?= $demandeur_data['num_dem'] ?>">
+    <input type="submit" name="update" value="Mettre à jour">
+</form>
 
         <form action="../C/c_supDemandeur.php" method="GET">
             <input type="hidden" name="num_dem" value="<?php echo $demandeurInfos['num_dem']; ?>">
@@ -41,5 +46,3 @@ if (isset($_SESSION["demandeur"])) {
 <?php
 }
 ?>
-</body>
-</html>

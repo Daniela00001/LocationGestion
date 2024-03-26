@@ -1,14 +1,16 @@
 <?php
-require '../M/Class Demande.php';
-
+require '../M/Class Locataire.php'; // Assurez-vous d'inclure la classe Locataire
+@session_start();
 $proprietaire = $_SESSION["proprietaire"];
 
 
-$totaux_par_appartement = DemandeLocation::getTotauxMensuelsParAppartement($proprietaire['num_prop']);
 
-$total_mensuel = DemandeLocation::getTotalMensuelProprietaire($proprietaire['num_prop']);
+$total = Locataire::getTotauxMensuelsParAppartement($proprietaire['num_prop']);
 
-$demandes = DemandeLocation::getDemandesProprietaireLouer($proprietaire['num_prop']);
+$totalProp = Locataire::getTotalMensuelProprietaire($proprietaire['num_prop']);
+
+
+$demandes = Locataire::getDemandesProprietaireLouer($proprietaire['num_prop']);
 
 
 

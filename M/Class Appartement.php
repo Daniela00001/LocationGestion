@@ -14,13 +14,12 @@ class Appartement {
     protected $elevator;
     protected $preavis;
     protected $date_libre;
-    protected $image = [];
     protected $num_prop;
     protected $details;
     protected $sqlQuery;
 
     // Constructeur de la classe
-    public function __construct($type_apart = '', $prix_loc = '', $prix_charges = '', $rue = '', $arrondissement = '', $etage = '', $elevator = '', $preavis = '', $date_libre = '',  $image = [], $num_prop = '', $details = '') {
+    public function __construct($type_apart = '', $prix_loc = '', $prix_charges = '', $rue = '', $arrondissement = '', $etage = '', $elevator = '', $preavis = '', $date_libre = '', $num_prop = '', $details = '') {
         $this->type_apart = $type_apart;
         $this->prix_loc = $prix_loc;
         $this->prix_charges = $prix_charges;
@@ -30,7 +29,6 @@ class Appartement {
         $this->elevator = $elevator;
         $this->preavis = $preavis;
         $this->date_libre = $date_libre;
-        $this->image = $image;
         $this->num_prop = $num_prop;
         $this->details = $details;
         $this->sqlQuery = ''; // Ajout de la déclaration de la propriété
@@ -304,6 +302,23 @@ class Appartement {
             return [];
         }
     }
+
+    public function recupAppart() {
+        global $conn; // Utilise la connexion à la base de données définie dans le fichier param_connexion_BdD.php
+    
+        try {
+            $sql = "SELECT * FROM appartement ";
+            $stmt = $conn->prepare($sql); // Prépare une requête SQL SELECT
+            $stmt->execute(); // Exécute la requête SQL
+            $annonces = $stmt->fetchAll(PDO::FETCH_ASSOC); // Récupère toutes les lignes de résultat sous forme d'un tableau associatif
+            return $annonces; // Retourne le tableau d'annonces
+        } catch (PDOException $e) {
+            echo "Erreur lors de la récupération des annonces : " . $e->getMessage(); // Affiche un message d'erreur en cas d'échec
+            return []; // Retourne un tableau vide
+        }
+    }
+    
+      
         
 }
 ?>

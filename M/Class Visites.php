@@ -5,52 +5,40 @@ class Visite {
     protected $num_apart;
     protected $num_dem;
     protected $date_visite;
+    protected $status;
 
     // Constructeur de la classe
-    public function __construct($num_apart, $num_dem, $date_visite) {
-        $this->num_apart = $num_apart;
-        $this->num_dem = $num_dem;
-        $this->date_visite = $date_visite;
-    }
+ // Constructeur de la classe
+public function __construct($num_apart='?',$num_dem = '?', $date_visite = '?', $status = '?') {
+    $this->num_apart = $num_apart;
+    $this->num_dem = $num_dem;
+    $this->date_visite = $date_visite;
+    $this->status = $status;
+}
+
 
 // Méthode pour enregistrer la visite dans la base de données
 public function enregistrerVisite() {
     global $conn;
-
+    
     try {
-        // Vérifie si une visite existe déjà pour ce demandeur, cet appartement et cette date
-        $sql_check = "SELECT COUNT(*) FROM visiter 
-                      WHERE num_dem = :num_dem
-                      AND num_apart = :num_apart" ;
-                      
-        $stmt_check = $conn->prepare($sql_check);
-        $stmt_check->bindParam(':num_dem', $this->num_dem);
-        $stmt_check->bindParam(':num_apart', $this->num_apart);
-       
-        $stmt_check->execute();
-        $existing_visits = $stmt_check->fetchColumn();
+        // Aucune visite existante, procédez à l'insertion
+        $sql = "INSERT INTO visiter (num_apart, num_dem, date_visite) 
+                VALUES (:num_apart, :num_dem, :date_visite)";
+        $stmt = $conn->prepare($sql);
+        $stmt->bindParam(':num_apart', $this->num_apart);
+        $stmt->bindParam(':num_dem', $this->num_dem);
+        $stmt->bindParam(':date_visite', $this->date_visite);
+        $stmt->execute();
 
-        if ($existing_visits > 0) {
-            // Une visite existe déjà, retournez un message d'erreur
-            return "Vous avez déjà une visite prévue pour cet appartement. <a href='../V/v_visites_demandeur.php'>Voir mes visites</a>";
-        } else {
-            // Aucune visite existante, procédez à l'insertion
-            $sql = "INSERT INTO visiter (num_apart, num_dem, date_visite) 
-                    VALUES (:num_apart, :num_dem, :date_visite)";
-            $stmt = $conn->prepare($sql);
-            $stmt->bindParam(':num_apart', $this->num_apart);
-            $stmt->bindParam(':num_dem', $this->num_dem);
-            $stmt->bindParam(':date_visite', $this->date_visite);
-            $stmt->execute();
-
-            return "Visite enregistrée avec succès! <a href='../V/v_visites_demandeur.php'>Voir mes visites</a>";
-        }
+        return "Visite enregistrée avec succès! <a href='../V/v_visites_demandeur.php'>Voir mes visites</a>";
     } catch (PDOException $e) {
         // Ajoutez des messages de débogage ici
         error_log('Erreur lors de l\'enregistrement de la visite : ' . $e->getMessage());
         return "Erreur lors de l'enregistrement de la visite : " . $e->getMessage();
     }
 }
+
 
 public static function getVisitesDemandeur($num_dem) {
     global $conn;
@@ -157,6 +145,20 @@ public static function getVisitesProprietaire($num_prop) {
     }
 }
 
+public function recupVisite() {
+    global $conn; 
+
+    try {
+        $sql = "SELECT * FROM visiter ";
+        $stmt = $conn->prepare($sql); // Prépare une requête SQL SELECT
+        $stmt->execute(); // Exécute la requête SQL
+        $visites = $stmt->fetchAll(PDO::FETCH_ASSOC); // Récupère toutes les lignes de résultat sous forme d'un tableau associatif
+        return $visites; // Retourne le tableau d'annonces
+    } catch (PDOException $e) {
+        echo "Erreur lors de la récupération des visites : " . $e->getMessage(); // Affiche un message d'erreur en cas d'échec
+        return []; // Retourne un tableau vide
+    }
+}
 
 }
 ?>

@@ -126,31 +126,33 @@ class Demandeur {
     // ... Autres méthodes pour les autres propriétés
 
     // Méthode pour mettre à jour les informations du demandeur
-    public function updateInfo() {
+    public function updateInfo($num_dem, $nom_dem, $prenom_dem, $adresse_dem, $cp_dem, $telephone_dem, $login_dem, $mdp_dem) {
         global $conn;
-        $conn->beginTransaction();
-
+    
         try {
             $sql = "UPDATE demandeur SET nom_dem = :nom, prenom_dem = :prenom, adresse_dem = :adresse, cp_dem = :cp, telephone_dem = :telephone, login_dem = :login, mdp_dem = :mdp WHERE num_dem = :num_dem";
-
+    
             $stmt = $conn->prepare($sql);
-            $stmt->bindParam(':nom', $this->nom_dem);
-            $stmt->bindParam(':prenom', $this->prenom_dem);
-            $stmt->bindParam(':adresse', $this->adresse_dem);
-            $stmt->bindParam(':cp', $this->cp_dem);
-            $stmt->bindParam(':telephone', $this->telephone_dem);
-            $stmt->bindParam(':login', $this->login_dem);
-            $stmt->bindParam(':mdp', $this->mdp_dem);
-            $stmt->bindParam(':num_dem', $this->num_dem);
+            $stmt->bindParam(':nom', $nom_dem);
+            $stmt->bindParam(':prenom', $prenom_dem);
+            $stmt->bindParam(':adresse', $adresse_dem);
+            $stmt->bindParam(':cp', $cp_dem);
+            $stmt->bindParam(':telephone', $telephone_dem);
+            $stmt->bindParam(':login', $login_dem);
+            $stmt->bindParam(':mdp', $mdp_dem);
+            $stmt->bindParam(':num_dem', $num_dem);
+         
+    
             $stmt->execute();
-
-            $conn->commit();
-            return true; // Succès de la mise à jour
+    
+            return true;
         } catch (PDOException $e) {
-            $conn->rollBack();
-            return false; // Échec de la mise à jour
+            echo "Erreur lors de la mise à jour : " . $e->getMessage();
+            return false;
         }
     }
+
+    
 
     public function supprimerDemandeur($num_dem) {
         global $conn; // Utilise la connexion à la base de données définie dans le fichier param_connexion_BdD.php
@@ -176,5 +178,19 @@ class Demandeur {
         }
     }
     
+    public function recupDem() {
+        global $conn; // Utilise la connexion à la base de données définie dans le fichier param_connexion_BdD.php
+    
+        try {
+            $sql = "SELECT * FROM demandeur ";
+            $stmt = $conn->prepare($sql); // Prépare une requête SQL SELECT
+            $stmt->execute(); // Exécute la requête SQL
+            $demandeurs = $stmt->fetchAll(PDO::FETCH_ASSOC); // Récupère toutes les lignes de résultat sous forme d'un tableau associatif
+            return $demandeurs; // Retourne le tableau d'annonces
+        } catch (PDOException $e) {
+            echo "Erreur lors de la récupération des demandeurs : " . $e->getMessage(); // Affiche un message d'erreur en cas d'échec
+            return []; // Retourne un tableau vide
+        }
+    }
 }
 ?>

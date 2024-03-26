@@ -19,6 +19,8 @@
                 <section class="actions">
                     <button class="button_index" onclick="location.href='V/v_choix_inscription.php'">S'inscrire</button>
                     <button class="button_index" onclick="location.href='V/v_choix_connexion.php'">Se connecter</button>
+                    
+                    <button class="button_index" onclick="location.href='V/v_espace_admin.php'">Admin</button>
                 </section>
             </header>
         </div>

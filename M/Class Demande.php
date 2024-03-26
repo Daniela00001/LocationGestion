@@ -150,64 +150,41 @@ class DemandeLocation {
             return array();
         }
     }
-    public static function getDemandesProprietaireLouer($num_prop) {
+    
+   
+   
+    public function recupDemande() {
+        global $conn; // Utilise la connexion à la base de données définie dans le fichier param_connexion_BdD.php
+    
+        try {
+            $sql = "SELECT * FROM demandes ";
+            $stmt = $conn->prepare($sql); // Prépare une requête SQL SELECT
+            $stmt->execute(); // Exécute la requête SQL
+            $demandes = $stmt->fetchAll(PDO::FETCH_ASSOC); // Récupère toutes les lignes de résultat sous forme d'un tableau associatif
+            return $demandes; // Retourne le tableau d'annonces
+        } catch (PDOException $e) {
+            echo "Erreur lors de la récupération des demandes : " . $e->getMessage(); // Affiche un message d'erreur en cas d'échec
+            return []; // Retourne un tableau vide
+        }
+    }
+    public function supprimerDemande($ID_demande) {
         global $conn;
     
         try {
-            $sql = "SELECT d.*, a.* 
-            FROM locataire d
-            JOIN appartement a ON d.num_apart = a.num_apart
-            WHERE a.num_prop = :num_prop";
-            $stmt = $conn->prepare($sql);
-            $stmt->bindParam(':num_prop', $num_prop);
+            // Préparer et exécuter la requête SQL pour supprimer la demande
+            $sql_delete = "DELETE FROM demandes WHERE ID_demande = :ID_demande";
+            $stmt = $conn->prepare($sql_delete);
+            $stmt->bindParam(':ID_demande', $ID_demande);
             $stmt->execute();
-            $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
     
-            return $result;
+            // Retourner un message de succès ou gérer d'autres actions après la suppression de la demande
+            return "Demande supprimée avec succès!";
         } catch (PDOException $e) {
-            error_log('Erreur lors de la récupération des demandes pour le propriétaire : ' . $e->getMessage());
-            return array();
+            // Gérer les erreurs de base de données
+            error_log('Erreur lors de la suppression de la demande : ' . $e->getMessage());
+            return "Erreur lors de la suppression de la demande : " . $e->getMessage();
         }
     }
-    public static function getTotalMensuelProprietaire($num_prop) {
-        global $conn;
-    
-        try {
-            $sql = "SELECT SUM(a.prix_loc + a.prix_charges) AS total_mensuel
-            FROM appartement a
-            JOIN locataire d ON a.num_apart = d.num_apart
-            WHERE a.num_prop = :num_prop ";
-            $stmt = $conn->prepare($sql);
-            $stmt->bindParam(':num_prop', $num_prop);
-            $stmt->execute();
-            $total_mensuel = $stmt->fetchColumn();
-    
-            return $total_mensuel;
-        } catch (PDOException $e) {
-            error_log('Erreur lors de la récupération du total mensuel pour le propriétaire : ' . $e->getMessage());
-            return 0; // Retourne 0 en cas d'erreur
-        }
-    }
-    public static function getTotauxMensuelsParAppartement($num_prop) {
-        global $conn;
-    
-        try {
-            $sql = "SELECT (a.prix_loc + a.prix_charges) AS total_mensuel
-                    FROM appartement a
-                    JOIN demandes d ON a.num_apart = d.num_apart
-                    WHERE a.num_prop = :num_prop AND d.Statut_demande = 'Acceptée'";
-            $stmt = $conn->prepare($sql);
-            $stmt->bindParam(':num_prop', $num_prop);
-            $stmt->execute();
-            $result = $stmt->fetchColumn();
-    
-            return $result;
-        } catch (PDOException $e) {
-            error_log('Erreur lors de la récupération des totaux mensuels par appartement pour le propriétaire : ' . $e->getMessage());
-            return null; // Ou une valeur par défaut, selon votre cas d'utilisation.
-        }
-    }
-    
     
 }
 ?>

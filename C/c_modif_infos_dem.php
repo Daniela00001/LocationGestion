@@ -1,64 +1,40 @@
 <?php
 require '../M/Class Demandeur.php';
 
-// Vérifie si le formulaire de mise à jour est soumis
-if (isset($_POST['update'])) {
-    // Récupère les données du formulaire
-    $num_dem = $_POST['num_dem'];
-    $nom = $_POST['nom_dem'] ?? '';
-    $prenom = $_POST['prenom'] ?? '';
-    $adresse = $_POST['adresse'] ?? '';
-    $cp = $_POST['cp'] ?? '';
-    $telephone = $_POST['telephone'] ?? '';
-    $login = $_POST['login'] ?? '';
-    $mdp = $_POST['mdp'] ?? '';
 
-    // Récupère les informations actuelles du demandeur en fonction de son numéro
-    $demandeur_data = Demandeur::getDemandeurById($num_dem);
 
-    // Crée une instance de la classe Demandeur avec les informations actuelles
-    $demandeur = new Demandeur(
-        $demandeur_data['nom_dem'],
-        $demandeur_data['prenom_dem'],
-        $demandeur_data['adresse_dem'],
-        $demandeur_data['cp_dem'],
-        $demandeur_data['telephone_dem'],
-        $demandeur_data['login_dem'],
-        $demandeur_data['mdp_dem']
-    );
-    
-    // Met à jour les propriétés de l'instance avec les nouvelles valeurs
-    $demandeur->setNumDem($num_dem);
-    $demandeur->setNomDem($nom);
-    $demandeur->setPrenomDem($prenom);
-    $demandeur->setAdresseDem($adresse);
-    $demandeur->setCpDem($cp);
-    $demandeur->setTelephoneDem($telephone);
-    $demandeur->setLoginDem($login);
-    $demandeur->setMdpDem($mdp);
-    
-    // Appelle la méthode pour mettre à jour les informations du demandeur
-    $success = $demandeur->updateInfo();
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Vérification de l'action à effectuer
+    if (isset($_POST['action'])) {
+        if ($_POST['action'] == 'modifierDemandeur') {
+            // Vérification de la présence du numéro du demandeur à supprimer
+           
+            if (isset($_POST['num_dem'], $_POST['nom_dem'], $_POST['prenom_dem'], $_POST['adresse_dem'], $_POST['cp_dem'], $_POST['telephone_dem'], $_POST['login_dem'], $_POST['mdp_dem'])) {
+                // Récupération des données du formulaire
+                $num_dem = $_POST['num_dem'];
+                $nom_dem = $_POST['nom_dem'];
+                $prenom_dem = $_POST['prenom_dem'];
+                $adresse_dem = $_POST['adresse_dem'];
+                $cp_dem = $_POST['cp_dem'];
+                $telephone_dem = $_POST['telephone_dem'];
+                $login_dem = $_POST['login_dem'];
+                $mdp_dem = $_POST['mdp_dem'];
 
-    if ($success) {
-        // Mise à jour réussie
-        echo "Mise à jour réussie!";
-    
-        // Détruit la session actuelle
-        session_destroy();
-    
-        // Réinitialise la session avec les nouvelles données du demandeur
-        session_start();
-        $_SESSION["demandeur"] = Demandeur::getDemandeurById($num_dem);
-    
-        // Redirige vers la page du profil
-        header("Location: ../V/v_profil_demandeur.php");
-        exit(); // Assurez-vous de terminer l'exécution du script après la redirection
-    } else {
-        // Erreur lors de la mise à jour
-        echo "Erreur lors de la mise à jour. Veuillez réessayer.";
+                // Modification du demandeur avec les données spécifiées
+                $success = $demandeur->updateInfo($num_dem, $nom_dem, $prenom_dem, $adresse_dem, $cp_dem, $telephone_dem, $login_dem, $mdp_dem);
+
+                if ($success) {
+                    // Redirection vers la même page après la modification réussie
+                    header("Location: ../V/v_espace_admin.php");
+                    exit;
+                } else {
+                    // Gestion de l'échec de modification
+                    echo "Une erreur s'est produite lors de la modification du demandeur.";
+                }
+            } else {
+                // Données manquantes pour la modification
+                echo "Certaines données nécessaires pour la modification du demandeur sont manquantes.";
+            }
+        }
     }
-    
 }
-?>
-

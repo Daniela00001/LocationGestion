@@ -44,34 +44,4 @@ foreach ($visites as $visite) {
 echo '</div>'; // Fermeture de la balise div#visites-container
 ?>
 <div id="confirmationMessage"></div>
-<script>
-function confirmSuppression(num_apart) {
-    if (confirm("Êtes-vous sûr de vouloir supprimer cette visite?")) {
-        // Soumet le formulaire avec l'ID approprié
-        var form = document.getElementById("form_" + num_apart);
-        var formData = new FormData(form);
 
-        // Utilisez fetch pour soumettre le formulaire de manière asynchrone
-        fetch(form.action, {
-            method: form.method,
-            body: formData
-        })
-        .then(response => response.text())
-        .then(message => {
-            // Affichez le message de confirmation dans une alerte
-            alert(message);
-
-            // Mettez à jour la balise avec l'identifiant "confirmationMessage" avec le message de confirmation
-            document.getElementById("confirmationMessage").innerHTML = '<p>' + message + '</p>';
-        })
-        .catch(error => {
-            console.error('Erreur lors de la suppression de la visite : ', error);
-        });
-
-        return false;
-    } else {
-        return false;
-    }
-}
-
-</script>

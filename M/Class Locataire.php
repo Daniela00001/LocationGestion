@@ -217,36 +217,36 @@ class Locataire {
        
     }
 
-    public function updateInfo() {
+    public function updateInfo($nom_loc, $prenom_loc, $date_naissance, $telephone_loc, $numCompt_loc, $banque, $adresse_banque_loc, $cp_banque_loc, $login_loc, $mdp_loc, $num_loc) {
         global $conn;
-
+    
         try {
             $sql = "UPDATE locataire 
-            SET nom_loc = :nom_loc, 
-                prenom_loc = :prenom_loc, 
-                date_naissance = :date_naissance, 
-                telephone_loc = :telephone_loc, 
-                numCompt_loc = :numCompt_loc, 
-                banque = :banque, 
-                adresse_banque_loc = :adresse_banque_loc, 
-                cp_banque_loc = :cp_banque_loc, 
-                login_loc = :login_loc, 
-                mdp_loc = :mdp_loc 
-            WHERE num_loc = :num_loc";
-
+                    SET nom_loc = :nom_loc, 
+                        prenom_loc = :prenom_loc, 
+                        date_naissance = :date_naissance, 
+                        telephone_loc = :telephone_loc, 
+                        numCompt_loc = :numCompt_loc, 
+                        banque = :banque, 
+                        adresse_banque_loc = :adresse_banque_loc, 
+                        cp_banque_loc = :cp_banque_loc, 
+                        login_loc = :login_loc, 
+                        mdp_loc = :mdp_loc 
+                    WHERE num_loc = :num_loc";
+    
             $stmt = $conn->prepare($sql);
-            $stmt->bindParam(':nom_loc', $this->nom_loc);
-            $stmt->bindParam(':prenom_loc', $this->prenom_loc);
-            $stmt->bindParam(':date_naissance', $this->date_naissance);
-            $stmt->bindParam(':telephone_loc', $this->telephone_loc);
-            $stmt->bindParam(':numCompt_loc', $this->numCompt_loc);
-            $stmt->bindParam(':banque', $this->banque);
-            $stmt->bindParam(':adresse_banque_loc', $this->adresse_banque_loc);
-            $stmt->bindParam(':cp_banque_loc', $this->cp_banque_loc);
-            $stmt->bindParam(':login_loc', $this->login_loc);
-            $stmt->bindParam(':mdp_loc', $this->mdp_loc);
-            $stmt->bindParam(':num_loc', $this->num_loc);
-
+            $stmt->bindParam(':nom_loc', $nom_loc);
+            $stmt->bindParam(':prenom_loc', $prenom_loc);
+            $stmt->bindParam(':date_naissance', $date_naissance);
+            $stmt->bindParam(':telephone_loc', $telephone_loc);
+            $stmt->bindParam(':numCompt_loc', $numCompt_loc);
+            $stmt->bindParam(':banque', $banque);
+            $stmt->bindParam(':adresse_banque_loc', $adresse_banque_loc);
+            $stmt->bindParam(':cp_banque_loc', $cp_banque_loc);
+            $stmt->bindParam(':login_loc', $login_loc);
+            $stmt->bindParam(':mdp_loc', $mdp_loc);
+            $stmt->bindParam(':num_loc', $num_loc);
+    
             $stmt->execute();
     
             return true;
@@ -254,8 +254,35 @@ class Locataire {
             echo "Erreur lors de la mise à jour : " . $e->getMessage();
             return false;
         }
+    
     }
-  
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     
     
@@ -282,26 +309,7 @@ class Locataire {
         }
     }
     
-    public function getTotalAPayer($num_loc) {
-        global $conn;
-    
-        try {
-            $sql = "SELECT (prix_loc + prix_charges) AS total 
-                    FROM locataire 
-                    JOIN appartement ON locataire.num_apart = appartement.num_apart 
-                    WHERE num_loc = :num_loc";
-            $stmt = $conn->prepare($sql);
-            $stmt->bindParam(':num_loc', $num_loc, PDO::PARAM_INT);
-            $stmt->execute();
-            $result = $stmt->fetch(PDO::FETCH_ASSOC);
-    
-            return $result;
-        } catch (PDOException $e) {
-            echo "Erreur lors du calcul du total à payer : " . $e->getMessage();
-            return 0; // ou une autre valeur par défaut selon vos besoins
-        }
-    }
-
+  
 
     public function supprimerLocataire($num_loc) {
         global $conn; // Utilise la connexion à la base de données définie dans le fichier param_connexion_BdD.php
@@ -327,5 +335,91 @@ class Locataire {
         
         }
     }
-}
+   
+    public function recupLoc() {
+        global $conn; // Utilise la connexion à la base de données définie dans le fichier param_connexion_BdD.php
+    
+        try {
+            $sql = "SELECT * FROM locataire ";
+            $stmt = $conn->prepare($sql); // Prépare une requête SQL SELECT
+            $stmt->execute(); // Exécute la requête SQL
+            $locataires = $stmt->fetchAll(PDO::FETCH_ASSOC); // Récupère toutes les lignes de résultat sous forme d'un tableau associatif
+            return $locataires; // Retourne le tableau d'annonces
+        } catch (PDOException $e) {
+            echo "Erreur lors de la récupération des locataires : " . $e->getMessage(); // Affiche un message d'erreur en cas d'échec
+            return []; // Retourne un tableau vide
+        }
+    }
+
+    public static function getDemandesProprietaireLouer($num_prop) {
+        global $conn;
+    
+        try {
+            $sql = "SELECT d.*, a.* 
+            FROM locataire d
+            JOIN appartement a ON d.num_apart = a.num_apart
+            WHERE a.num_prop = :num_prop";
+            $stmt = $conn->prepare($sql);
+            $stmt->bindParam(':num_prop', $num_prop);
+            $stmt->execute();
+            $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    
+            return $result;
+        } catch (PDOException $e) {
+            error_log('Erreur lors de la récupération des demandes pour le propriétaire : ' . $e->getMessage());
+            return array();
+        }
+    }
+
+  
+    public static function getTotauxMensuelsParAppartement($num_prop) {
+        global $conn;
+    
+        try {
+            $sql = "SELECT a.num_apart, (a.prix_loc + a.prix_charges) AS total_mensuel
+                    FROM appartement a
+                    JOIN locataire d ON a.num_apart = d.num_apart
+                    WHERE a.num_prop = :num_prop
+                    GROUP BY a.num_apart";
+            $stmt = $conn->prepare($sql);
+            $stmt->bindParam(':num_prop', $num_prop);
+            $stmt->execute();
+            $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    
+            return $result;
+        } catch (PDOException $e) {
+            error_log('Erreur lors de la récupération des demandes pour le propriétaire : ' . $e->getMessage());
+            return array();
+        }
+    
+    
+    }
+
+
+    public static function getTotalMensuelProprietaire($num_prop) {
+        global $conn;
+    
+        try {
+            $sql = "SELECT SUM(a.prix_loc + a.prix_charges) AS total_mensuel
+            FROM appartement a
+            JOIN locataire d ON a.num_apart = d.num_apart
+            WHERE a.num_prop = :num_prop ";
+            $stmt = $conn->prepare($sql);
+            $stmt->bindParam(':num_prop', $num_prop);
+            $stmt->execute();
+            $total_mensuel = $stmt->fetchColumn();
+    
+            return $total_mensuel;
+        } catch (PDOException $e) {
+            error_log('Erreur lors de la récupération du total mensuel pour le propriétaire : ' . $e->getMessage());
+            return 0; // Retourne 0 en cas d'erreur
+        }
+    }
+
+
+
+    }
+   
+
+
 ?>

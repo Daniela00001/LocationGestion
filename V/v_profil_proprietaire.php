@@ -29,6 +29,10 @@
                 <label for="telephone_prop">Téléphone:</label>
                 <input type="text" id="telephone_prop" name="telephone_prop" value="<?= $proprietaire_data['telephone_prop'] ?>">
 
+    <input type="hidden" id="login_prop" name="login_prop" value="<?= $proprietaire_data['login_prop'] ?>">
+
+    <input type="hidden" id="mdp_prop" name="mdp_prop" value="<?= $proprietaire_data['mdp_prop'] ?>">
+
                 <input type="hidden" name="num_prop" value="<?= $proprietaire_data['num_prop'] ?>">
                 <input type="submit" name="update" value="Mettre à jour">
             </form>

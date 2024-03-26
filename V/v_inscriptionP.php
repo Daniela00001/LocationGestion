@@ -23,13 +23,9 @@
     <div class="retourBTN">
         <button class="button_index"  onclick="location.href='v_choix_inscription.php'"><i class="fas fa-arrow-left"></i> Retour</button>
     </div>
-    <div id="alerte">
-        <?php echo isset($_SESSION['erreur']) ? $_SESSION['erreur'] : ''; ?>
-    </div>
     <form action="../C/c_inscription_proprietaire.php" method="post" onsubmit="return validateForm()">
-        <div class="formInscPRop">
 
-        
+        <div class="formInscPRop">
             <div class="header-text2">
                 <h2>Inscription Propriétaire </h2>
             </div>
@@ -55,16 +51,37 @@
     </form>
 
     <script>
-        // Fonction pour valider le formulaire et afficher l'alerte si nécessaire
+        // Affiche une alerte si une erreur est présente dans la session
+        window.onload = function() {
+            <?php if (isset($_SESSION['erreur'])): ?>
+                alert("<?php echo $_SESSION['erreur']; ?>");
+                <?php unset($_SESSION['erreur']); ?>
+            <?php endif; ?>
+        };
+        
         function validateForm() {
-            var errorMessage = "<?php echo isset($_SESSION['erreur']) ? $_SESSION['erreur'] : '' ?>";
-            
-            if (errorMessage !== "") {
-                alert(errorMessage);
-                return false; // Annule la soumission du formulaire si une erreur est présente
+            var telephone = document.getElementById("telephone").value;
+            var cp = document.getElementById("cp").value;
+
+            // Vérification du numéro de téléphone
+            var telephoneRegex = /^\d{10}$/; // 10 chiffres exactement
+            if (!telephoneRegex.test(telephone)) {
+                alert("Veuillez entrer un numéro de téléphone valide.");
+                return false;
             }
-            return true; // Soumet le formulaire si aucune erreur n'est présente
+
+            // Vérification du code postal
+            var cpRegex = /^\d{5}$/; // 5 chiffres exactement
+            if (!cpRegex.test(cp)) {
+                alert("Veuillez entrer un code postal valide.");
+                return false;
+            }
+
+            // Vous pouvez ajouter d'autres validations pour d'autres champs ici...
+
+            return true; // Soumet le formulaire si toutes les validations sont passées
         }
     </script>
+
 </body>
 </html>

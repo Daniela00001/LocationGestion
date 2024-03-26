@@ -1,6 +1,6 @@
 <?php
-session_start(); // Démarre la session si ce n'est pas déjà fait
-require '../M/Class Proprietaire.php'; // Inclut le fichier contenant la classe Proprietaire
+@session_start();
+require '../M/Class Proprietaire.php'; // Assurez-vous que le chemin d'accès au fichier est correct
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $nom = $_POST['nom'];
@@ -11,33 +11,29 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $login = $_POST['login'];
     $mdp = $_POST['mdp']; 
 
-    // Vérifier si le login existe déjà
-    if (Proprietaire::loginExiste($login)) {
-        // Stocker le message d'erreur dans une variable de session
-        $_SESSION['erreur'] = "Le login est déjà utilisé. Veuillez en choisir un autre.";
-        
-        // Rediriger vers la page précédente pour afficher le formulaire avec le message d'erreur
-        header("Location: ".$_SERVER['HTTP_REFERER']);
-        exit;
+    // Crée une nouvelle instance de la classe Proprietaire avec les données du formulaire
+    $proprietaire = new Proprietaire($nom, $prenom, $adresse, $cp, $telephone, $login, $mdp);
+
+    // Vérifie si le login existe déjà
+    $existeDeja = $proprietaire->verifierProprietaire($login, $mdp);
+    if ($existeDeja) {
+        // Si le login existe déjà, définissez un message d'erreur approprié
+        $_SESSION['erreur'] = "Ce login est déjà utilisé. Veuillez en choisir un autre.";
+        // Redirigez vers la page du formulaire avec un message d'erreur
+        header("Location: ../V/v_inscriptionP.php");
+        exit(); // Arrête l'exécution du script après la redirection
     }
 
-    // Le login est unique, procéder à l'inscription
-    $proprietaire = new Proprietaire($nom, $prenom, $adresse, $cp, $telephone, $login, $mdp);
-    
     try {
         // Tente d'effectuer l'inscription du propriétaire en appelant la méthode "inscription()"
         $proprietaire->inscription();
 
-       
+        // Redirige vers une page de confirmation si l'inscription est réussie
         header("Location: ../V/v_confirmation_inscriptionP.php");
         exit(); // Arrête l'exécution du script après la redirection
     } catch (PDOException $e) {
-        // Capture une éventuelle erreur et stocke le message d'erreur dans une variable de session
-        $_SESSION['erreur'] = "Erreur lors de l'inscription : " . $e->getMessage();
-        
-        // Rediriger vers la page précédente pour afficher le formulaire avec le message d'erreur
-        header("Location: ".$_SERVER['HTTP_REFERER']);
-        exit;
+        // Capture une éventuelle erreur et affiche un message d'erreur
+        echo "Erreur lors de l'inscription : " . $e->getMessage();
     }
 }
 ?>
