@@ -11,7 +11,7 @@ $annonces = $appartement->recupAppart(); // Appel de la méthode recupAppart()
 
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Vérification de l'action à effectuer
+    
     if(isset($_POST['action'])) {
         if ($_POST['action'] == 'supprimerAppartement') {
             // Vérification de la présence du numéro d'appartement à supprimer
