@@ -36,7 +36,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
                     }
                 }
             } else {
-                // Sinon, effectuez simplement la recherche par prix maximum
+                
                 $annonces = $appartement->rechercherAppartementsParPrixMax($prixMax);
             }
         }
