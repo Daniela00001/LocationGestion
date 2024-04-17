@@ -1,19 +1,18 @@
 <?php
-require '../M/Class Locataire.php';
+require '../M/Modele  Locataire.php'; // Assurez-vous d'utiliser le bon modèle
 
-// Vérifie si la méthode de requête est POST
-if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['num_loc'])) {
-    // Récupère le numéro de locataire à partir des données POST
-    $num_loc = $_POST['num_loc'];
+if ($_SERVER["REQUEST_METHOD"] === "GET" && isset($_GET['num_loc'])) {
+    $num_loc = $_GET['num_loc'];
 
-    // Crée une nouvelle instance de la classe Locataire
-    $locataire = new Locataire();
+    $locataire = new Locataire(); // Utilisez le bon nom de classe
 
-    // Appelle la méthode supprimerLocataire avec le numéro de locataire récupéré
     $suppression_reussie = $locataire->supprimerLocataire($num_loc);
 
-    // Redirige vers la page de confirmation après la suppression
-    header("Location: ../V/v_home_propietaire.php");
-    exit; 
+    if ($suppression_reussie) {
+        header("Location: ../V/v_confirmation_supProp.php");
+        exit;
+    } else {
+        echo "La suppression a échoué."; // Gérer l'échec de la suppression
+    }
 }
 ?>

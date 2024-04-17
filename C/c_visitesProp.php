@@ -1,8 +1,7 @@
 <?php
-@session_start();
-require 'param_connexion_BdD.php';
-require '../M/Class Visites.php';
 
+require '../M/Modele Visites.php';
+@session_start();
 
 $proprietaire = $_SESSION["proprietaire"];
 

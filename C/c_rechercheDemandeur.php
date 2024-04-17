@@ -1,4 +1,4 @@
-<?php require '../M/Class Appartement.php';
+<?php require '../M/Modele  Appartement.php';
 session_start();
 
 if ($_SERVER["REQUEST_METHOD"] == "GET") {

@@ -8,50 +8,8 @@ require_once '../C/c_TB_admin.php'; // Assurez-vous de mettre le bon chemin vers
     <meta charset="UTF-8">
     <title>Liste des appartements</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-        }
-        
-        .navbar {
-            background-color: #333;
-            padding: 10px 0;
-            text-align: center;
-        }
-        
-        .navbar a {
-            color: white;
-            text-decoration: none;
-            padding: 10px 20px;
-        }
-        
-        .header-container {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-        
-        .table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-        
-        .table th, .table td {
-            border: 1px solid #ddd;
-            padding: 8px;
-        }
-        
-        .table th {
-            background-color: #f2f2f2;
-            text-align: left;
-        }
-        
-        .delete-link {
-            color: red;
-            text-decoration: none;
-        }
-    </style>
+    <link rel="stylesheet" href="CSS/styleSessionAD.css">
+   
 </head>
 <body>
     

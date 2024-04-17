@@ -1,12 +1,13 @@
 <?php
 
-require '../M/Class Proprietaire.php';
+require '../M/Modele  Proprietaire.php';
 session_start();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_POST['deconnexion'])) {
-        session_destroy();
-        header("Location: ../V/v_connexion_proprietaire.php");
+        // Déconnexion de l'utilisateur actuel
+        unset($_SESSION['proprietaire']); // ou unset($_SESSION['demandeur']) ou unset($_SESSION['locataire'])
+        header("Location: ../V/v_connexionP.php");
         exit();
     } else {
         $login = $_POST["login"];

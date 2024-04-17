@@ -8,9 +8,7 @@ include 'v_espace_proprietaire.php';
     <link rel="stylesheet" type="text/css" href="../CSS/styleSessionProp.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Formulaire Appartement</title>
-    <style>
-        /* Ajoutez ici votre CSS personnalisé */
-    </style>
+  
     <script>
         function validateForm() {
             var prix_loc = document.getElementById("prix_loc").value;
@@ -34,6 +32,10 @@ include 'v_espace_proprietaire.php';
             <option value="Pantahouse">Pantahouse</option>
             <option value="T1">T1</option>
             <option value="T2">T2</option>
+            <option value="T3">T3</option>
+            <option value="T4">T4</option>
+            <option value="T5">T5</option>
+
         </select><br>
 
         <label for="prix_loc" class="appartement-label">Prix de location :</label>

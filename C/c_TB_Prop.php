@@ -1,5 +1,5 @@
 <?php
-require '../M/Class Locataire.php'; // Assurez-vous d'inclure la classe Locataire
+require '../M/Modele  Locataire.php'; // Assurez-vous d'inclure la classe Locataire
 @session_start();
 $proprietaire = $_SESSION["proprietaire"];
 

@@ -2,8 +2,8 @@
 // Assurez-vous de démarrer la session au début de votre script
 session_start();
 
-require_once '../M/Class Appartement.php'; // Assurez-vous que le nom de votre classe est correct
-require_once '../M/Class Proprietaire.php'; // Assurez-vous que le nom de votre classe est correct
+require_once '../M/Modele  Appartement.php'; // Assurez-vous que le nom de votre classe est correct
+require_once '../M/Modele  Proprietaire.php'; // Assurez-vous que le nom de votre classe est correct
 
 // Vérifiez si la méthode de requête est POST
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {

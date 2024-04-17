@@ -43,7 +43,7 @@ include 'v_espace_demandeur.php';
     <input type="text" id="login_loc" name="login_loc" required>
 
     <label for="mdp_loc">Mot de passe :</label>
-    <input type="password" id="mdp_loc" name="mdp_loc" required>
+    <input type="password" id="mdp_loc" name="mdp_loc" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Le mot de passe doit contenir au moins 8 caractères, une lettre majuscule, une lettre minuscule et un chiffre." required>
 
     <input type="hidden" name="num_apart" value="<?php echo isset($_POST['num_apart']) ? $_POST['num_apart'] : (isset($_SESSION['num_apart']) ? $_SESSION['num_apart'] : ''); ?>">
 

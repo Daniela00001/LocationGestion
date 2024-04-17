@@ -2,12 +2,11 @@
 include '../C/c_connexionP.php';
 
 @session_start();
-if (!isset($_SESSION["proprietaire"])) {
-    header("Location: v_connexion_proprietaire.php");
-    exit();
-} else {
+if (isset($_SESSION['proprietaire'])) {
     $proprietaire = $_SESSION["proprietaire"];
     $login_prop = $proprietaire["login_prop"];
+
+
 }
 ?>
 <!DOCTYPE html>

@@ -18,7 +18,7 @@ include '../C/c_TB_Prop.php';
                 foreach ($total as $appartement) {
                     if ($appartement['num_apart'] == $demande['num_apart']) {
                         echo $appartement['total_mensuel'];
-                        break; // Arrêtez la boucle dès que vous avez trouvé le total
+                        break; 
                     }
                 }
             ?>
@@ -42,6 +42,6 @@ include '../C/c_TB_Prop.php';
         <br><br>
     </div>
 <?php endforeach; ?>
-<p><strong>Somme totale des totaux mensuels :</strong> <?php echo $totalProp; ?></p>
+<p><strong>Somme totale  :</strong> <?php echo $totalProp; ?></p>
 
 </div>

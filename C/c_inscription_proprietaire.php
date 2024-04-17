@@ -1,6 +1,6 @@
 <?php
 @session_start();
-require '../M/Class Proprietaire.php'; // Assurez-vous que le chemin d'accès au fichier est correct
+require '../M/Modele  Proprietaire.php'; // Assurez-vous que le chemin d'accès au fichier est correct
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $nom = $_POST['nom'];

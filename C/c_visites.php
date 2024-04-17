@@ -1,11 +1,9 @@
 <?php
-@session_start();
-require 'param_connexion_BdD.php';
-require '../M/Class Visites.php';
 
+require '../M/Modele Visites.php';
+@session_start();
 $demandeur = $_SESSION["demandeur"];
 
-// Obtenir les visites du demandeur
 $visites = Visite::getVisitesDemandeur($demandeur['num_dem']);
 
 // Vérifie si la requête est de type POST
@@ -30,6 +28,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         } elseif ($action === 'supprimer') {
             // Supprime la visite
             $result = $visite->supprimerVisite();
+            header("Location: ../V/v_visites_demandeur.php");
+            exit();
+        } elseif ($action === 'modifier') {
+            // Met à jour la date de visite
+            $nouvelle_date_visite = $_POST['nouvelle_date_visite'];
+            $result = $visite->mettreAJourDateVisite($nouvelle_date_visite);
+            header("Location: ../V/v_visites_demandeur.php");
         } else {
             // Retourne un message d'erreur si l'action n'est pas reconnue
             // Vous pouvez ajuster cette partie en fonction de votre logique

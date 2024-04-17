@@ -82,9 +82,7 @@
                 return false;
             }
 
-            // Autres validations peuvent être ajoutées ici...
-
-            // Si toutes les validations sont réussies, retourne true pour soumettre le formulaire
+           
             return true;
         }
     </script>

@@ -1,40 +1,57 @@
 <?php
-require '../M/Class Demandeur.php';
+require '../M/Modele  Demandeur.php';
 
+if (isset($_POST['update'])) {
+    // Vérification des données reçues depuis le formulaire
+    var_dump($_POST);
 
+    // Récupération des données du formulaire
+    $num_dem = $_POST['num_dem'];
+    $nom = $_POST['nom_dem'] ?? '';
+    $prenom = $_POST['prenom_dem'] ?? '';
+    $adresse = $_POST['adresse_dem'] ?? '';
+    $cp = $_POST['cp_dem'] ?? '';
+    $telephone = $_POST['telephone_dem'] ?? '';
+    $login = $_POST['login_dem'] ?? '';
+    $mdp = $_POST['mdp_dem'] ?? '';
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Vérification de l'action à effectuer
-    if (isset($_POST['action'])) {
-        if ($_POST['action'] == 'modifierDemandeur') {
-            // Vérification de la présence du numéro du demandeur à supprimer
-           
-            if (isset($_POST['num_dem'], $_POST['nom_dem'], $_POST['prenom_dem'], $_POST['adresse_dem'], $_POST['cp_dem'], $_POST['telephone_dem'], $_POST['login_dem'], $_POST['mdp_dem'])) {
-                // Récupération des données du formulaire
-                $num_dem = $_POST['num_dem'];
-                $nom_dem = $_POST['nom_dem'];
-                $prenom_dem = $_POST['prenom_dem'];
-                $adresse_dem = $_POST['adresse_dem'];
-                $cp_dem = $_POST['cp_dem'];
-                $telephone_dem = $_POST['telephone_dem'];
-                $login_dem = $_POST['login_dem'];
-                $mdp_dem = $_POST['mdp_dem'];
+    // Création d'une instance de la classe Proprietaire
+    $demandeur_data = Demandeur::getDemandeurById($num_dem);
+    $demandeur = new Demandeur(
+        $demandeur_data['nom_dem'],
+        $demandeur_data['prenom_dem'],
+        $demandeur_data['adresse_dem'],
+        $demandeur_data['cp_dem'],
+        $demandeur_data['telephone_dem'],
+        $demandeur_data['login_dem'],
+        $demandeur_data['mdp_dem']
+    );
 
-                // Modification du demandeur avec les données spécifiées
-                $success = $demandeur->updateInfo($num_dem, $nom_dem, $prenom_dem, $adresse_dem, $cp_dem, $telephone_dem, $login_dem, $mdp_dem);
+    // Mise à jour des données du propriétaire
+    $success = $demandeur->updateInfo(
+        $num_dem,
+        $nom,
+        $prenom,
+        $adresse,
+        $cp,
+        $telephone,
+        $login,
+        $mdp
+    );
 
-                if ($success) {
-                    // Redirection vers la même page après la modification réussie
-                    header("Location: ../V/v_espace_admin.php");
-                    exit;
-                } else {
-                    // Gestion de l'échec de modification
-                    echo "Une erreur s'est produite lors de la modification du demandeur.";
-                }
-            } else {
-                // Données manquantes pour la modification
-                echo "Certaines données nécessaires pour la modification du demandeur sont manquantes.";
-            }
-        }
+    // Vérification si la mise à jour a réussi
+    if ($success) {
+        echo "Mise à jour réussie!";
+
+        session_destroy();
+        session_start();
+        $_SESSION["demandeur"] = Demandeur::getDemandeurById($num_dem);
+
+        // Redirection vers la page du profil du propriétaire
+        header("Location: ../V/v_profil_demandeur.php");
+        exit(); // Assurez-vous de terminer l'exécution du script après la redirection
+    } else {
+        echo "Erreur lors de la mise à jour. Veuillez réessayer.";
     }
 }
+?>

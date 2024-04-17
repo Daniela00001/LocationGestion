@@ -1,5 +1,5 @@
 <?php
-require '../M/Class Proprietaire.php';
+require '../M/Modele  Proprietaire.php';
 
 // Vérifier si le numéro de demandeur est soumis via le formulaire
 if ($_SERVER["REQUEST_METHOD"] === "GET" && isset($_GET['num_prop'])) {
@@ -11,9 +11,8 @@ if ($_SERVER["REQUEST_METHOD"] === "GET" && isset($_GET['num_prop'])) {
     // Appeler la méthode pour supprimer le demandeur de la base de données
     $suppression_reussie = $proprietaire->supprimerProprietaire($num_prop);
 
-    // Vérifier si la suppression a réussi
-    
-        header("Location: ../V/v_confirmation_suite.php");
+   
+        header("Location: ../V/v_confirmation_supProp.php");
         exit; 
     }
 ?>

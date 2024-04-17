@@ -40,7 +40,7 @@ if(isset($_GET["annonces"])) {
     echo '   <input type="date" name="date_visite" required>';
     echo '   <button type="button" onclick="submitForm(' . $appartement['num_apart'] . ', \'enregistrer\')">Valider</button>';
     echo '   <button type="button" onclick="clearDate(' . $appartement['num_apart'] . ')">Annuler</button>';
-    // Ajout de la balise div pour les messages d'alerte
+    
     echo '   <div id="message_' . $appartement['num_apart'] . '"></div>';
     echo '</form>';
 
@@ -136,7 +136,7 @@ function submitDemande(num_apart) {
     xhr.onreadystatechange = function () {
         if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
             // Afficher un message de succès ou d'erreur, ou rafraîchir la page
-            alert(xhr.responseText); // Remplacez alert par votre propre méthode d'affichage
+            alert(xhr.responseText);
             // Si succès, peut-être actualiser la page pour refléter les changements dans la liste des annonces
             window.location.reload();
         }

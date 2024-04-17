@@ -10,7 +10,6 @@
     if (isset($_SESSION["demandeur"])) {
         $demandeurInfos = $_SESSION["demandeur"];
         
-        // Vérifie si les données du demandeur ont été mises à jour
         $demandeur_data = isset($demandeur_data) ? $demandeur_data : $demandeurInfos;
 
         ?>

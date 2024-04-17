@@ -5,7 +5,7 @@ body {
 
 .navbar {
     overflow: hidden;
-    background: linear-gradient(to bottom right,  #ba8a5f, #6b401f);
+    background: linear-gradient(to bottom right,  #854f2b, #6b401f);
     text-align: center;
 }
 
@@ -24,7 +24,7 @@ body {
 }
 
 h1, h2 {
-    color: #854224;
+    color: #852724;
     text-align: center;
 }
 
@@ -376,4 +376,69 @@ input[type="submit"] {
     border-radius: 5px;
     box-sizing: border-box;
     text-align: left;
+}
+
+/* Style pour la modal */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.4);
+}
+
+/* Contenu de la modal */
+.modal-content {
+    background-color: #fefefe;
+    margin: -1% auto; /* Centrer verticalement et horizontalement */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 400px; /* Largeur maximale de la modal */
+}
+
+/* Bouton de fermeture de la modal */
+.close {
+    float: right;
+    font-size: 28px;
+}
+
+/* Style pour le bouton de recherche */
+.modal-content button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px;
+    margin-top: 10px;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+}
+
+.modal-content button:hover {
+    opacity: 0.8;
+}
+
+/* Style pour les éléments de formulaire dans la modal */
+.modal-content label,
+.modal-content select,
+.modal-content input {
+    margin-top: 10px;
+    display: block;
+}
+
+/* Style pour l'en-tête de la page */
+.header-container {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.header-image_index {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 10px;
 }

@@ -1,5 +1,5 @@
 <?php
-require_once '../M/Class Demande.php';
+require_once '../M/Modele  Demande.php';
 @session_start();
 $proprietaire = $_SESSION["proprietaire"];
 

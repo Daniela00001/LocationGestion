@@ -40,7 +40,7 @@
             <label for="telephone">Téléphone :</label>
             <input type="tel" id="telephone" name="telephone" required>
             <label for="login">Login :</label>
-            <input type="text" id="login" name="login" required>
+            <input type="text" id="login" name="login" pattern=".{5,}" title="Le login doit contenir au moins 5 caractères" required>
             <label for="mdp">Mot de passe :</label>
             <input type="password" id="mdp" name="mdp" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Le mot de passe doit contenir au moins 8 caractères, une lettre majuscule, une lettre minuscule et un chiffre." required>
         </div>
@@ -77,7 +77,7 @@
                 return false;
             }
 
-            // Vous pouvez ajouter d'autres validations pour d'autres champs ici...
+          
 
             return true; // Soumet le formulaire si toutes les validations sont passées
         }

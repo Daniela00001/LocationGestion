@@ -113,6 +113,7 @@ if(isset($_SESSION["demandeur"])) {
         }
     }
 </script>
-
+<style>
+</style>
 </body>
 </html>

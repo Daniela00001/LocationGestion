@@ -1,5 +1,5 @@
 <?php
-require_once '../M/Class Locataire.php'; // Assurez-vous que le chemin vers votre classe Locataire est correct
+require_once '../M/Modele  Locataire.php'; // Assurez-vous que le chemin vers votre classe Locataire est correct
 
 // Vérifier si le locataire est connecté
 if (isset($_SESSION["locataire"])) {

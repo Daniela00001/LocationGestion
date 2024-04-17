@@ -1,13 +1,13 @@
 
 <?php
 
-require '../M/Class Locataire.php';
+require '../M/Modele  Locataire.php';
 session_start();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_POST['deconnexion'])) {
         session_destroy();
-        header("Location: ../V/v_connexion_locataire.php");
+        header("Location: ../V/v_connexionL.php");
         exit();
     } else {
         $login = $_POST["login_loc"];

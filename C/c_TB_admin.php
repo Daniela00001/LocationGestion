@@ -1,10 +1,10 @@
 <?php
-require_once '../M/Class Appartement.php';
-require_once '../M/Class Demande.php';
-require_once '../M/Class Proprietaire.php';
-require_once '../M/Class Demandeur.php';
-require_once '../M/Class Locataire.php';
-require_once '../M/Class Visites.php';
+require_once '../M/Modele  Appartement.php';
+require_once '../M/Modele  Demande.php';
+require_once '../M/Modele  Proprietaire.php';
+require_once '../M/Modele  Demandeur.php';
+require_once '../M/Modele  Locataire.php';
+require_once '../M/Modele Visites.php';
 
 $appartement = new Appartement(); // Instanciation de la classe Appartement
 $annonces = $appartement->recupAppart(); // Appel de la méthode recupAppart()

@@ -1,6 +1,6 @@
 <?php
 include 'v_espace_proprietaire.php';
-include '../M/Class Appartement.php';
+include '../M/Modele  Appartement.php';
 
 ?>
 <link rel="stylesheet" type="text/css" href="../V/CSS/styleSessionProp.css">

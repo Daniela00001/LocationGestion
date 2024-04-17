@@ -28,13 +28,12 @@ if (isset($_SESSION["demandeur"])) {
             <label for="telephone" class="profil-label">Téléphone:</label>
             <input type="text" id="telephone" name="telephone_dem" value="<?= $demandeur_data['telephone_dem'] ?>" class="profil-input">
 
-            <label for="login" class="profil-label">Login:</label>
-    <input type="text" id="login" name="login_dem" value="<?= $demandeur_data['login_dem'] ?>" class="profil-input">
+    <input type="hidden" id="login" name="login_dem" value="<?= $demandeur_data['login_dem'] ?>" class="profil-input">
 
-    <label for="mdp" class="profil-label">Mot de passe:</label>
-    <input type="password" id="mdp" name="mdp_dem" value="" class="profil-input">
+    <input type="hidden" id="mdp" name="mdp_dem" value="<?= $demandeur_data['mdp_dem'] ?>" class="profil-input">
 
     <input type="hidden" name="num_dem" value="<?= $demandeur_data['num_dem'] ?>">
+    <input type="hidden" name="action" value="modifierDemandeur">
     <input type="submit" name="update" value="Mettre à jour">
 </form>
 

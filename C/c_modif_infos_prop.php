@@ -1,5 +1,5 @@
 <?php
-require '../M/Class Proprietaire.php';
+require '../M/Modele  Proprietaire.php';
 
 if (isset($_POST['update'])) {
     // Vérification des données reçues depuis le formulaire

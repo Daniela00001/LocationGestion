@@ -4,6 +4,7 @@
 if(isset($_SESSION["locataire"])) {
     $locataire = $_SESSION["locataire"];
     $login_loc = $locataire["login_loc"];
+    
 }
 ?>
 

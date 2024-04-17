@@ -1,6 +1,6 @@
 <?php
 
-require '../M/Class Demande.php';
+require '../M/Modele  Demande.php';
 @session_start();
 $demandeur = $_SESSION["demandeur"];
 
@@ -22,6 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Répond avec un message d'erreur si les données nécessaires ne sont pas présentes
         echo "Erreur : Données manquantes pour enregistrer la demande de location.";
     }
+    
 } 
 
 

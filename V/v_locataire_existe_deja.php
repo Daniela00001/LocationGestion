@@ -44,7 +44,7 @@
         <h1>OUPSSSS.... Il semble que vous êtes déjà locataire</h1>
         <p>Si vous souhaitez louer un nouveau logement, veuillez supprimer votre compte actuel en tant que locataire.</p>
         <p>La suppression de celui-ci implique la résiliation de votre contrat de location actuel.</p>
-        <a href="supprimer_compte_locataire.php">Supprimer mon compte de locataire</a>
+        <a href="../index.php">Supprimer mon   compte de locataire</a>
     </div>
 </body>
 </html>

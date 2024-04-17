@@ -37,7 +37,12 @@ include '../C/c_contratLoc.php';
     </div>
 </body>
 </html>
-<style>/* CSS/styleSessionLoc.css */
+
+
+
+<style>
+
+/* CSS/styleSessionLoc.css */
 
 /* CSS/styleSessionLoc.css */
 

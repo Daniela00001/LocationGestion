@@ -1,6 +1,6 @@
 <?php
 include 'v_espace_locataire.php';
-
+@session_start();
 if (isset($_SESSION["locataire"])) {
     $locataireInfos = $_SESSION["locataire"];
     
@@ -38,7 +38,7 @@ if (isset($_SESSION["locataire"])) {
                 <input type="text" id="banque" name="banque" value="<?= $locataireInfos['banque'] ?>">
 
                 <label for="adresse_banque_loc">Adresse de la banque:</label>
-                <input type="text" id="adresse_banque_loc" name="adresse_banque_loc" value="<?= $locataireInfos['adresse_banque_loc'] ?>">
+                <input type="text" id="adresse_banque_loc" name="adresse_banque_loc" value="<?= $locataire_data['adresse_banque_loc'] ?>">
 
                 <label for="cp_banque_loc">Code postal de la banque:</label>
                 <input type="text" id="cp_banque_loc" name="cp_banque_loc" value="<?= $locataireInfos['cp_banque_loc'] ?>">

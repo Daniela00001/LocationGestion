@@ -1,5 +1,5 @@
 <?php
-require '../M/Class Demandeur.php'; // Inclut le fichier contenant la classe Demandeur
+require '../M/Modele  Demandeur.php'; // Inclut le fichier contenant la classe Demandeur
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Vérifie que la requête est de type POST
