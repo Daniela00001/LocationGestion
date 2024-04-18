@@ -21,7 +21,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $success = $appartement->supprimerAppartement($num_apart);
 
                 if ($success) {
-                    // Redirection vers la même page après la suppression réussie
+                    
                     header("Location: ../V/v_espace_admin.php");
                     exit;
                 } else {
