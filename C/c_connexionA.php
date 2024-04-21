@@ -10,7 +10,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         // Appelle la méthode de connexion de la classe Admin
         $admin = Admin::login($login, $mdp);
-var_dump($admin);
+//var_dump($admin);
         if ($admin) {
             // Authentification réussie, redirige vers une vue appropriée
             header("Location: ../V/v_espace_admin.php");
@@ -24,4 +24,5 @@ var_dump($admin);
         echo "Veuillez remplir tous les champs.";
     }
 }
+
 ?>

@@ -3,6 +3,7 @@
 <body>
 <link rel="stylesheet" href="CSS/styleSessionDem.css">
 <div class="about-us">
+
     <h1>Qui sommes-nous?</h1>
 
     <p>Bienvenue chez DWellApart, l'architecte de votre confort et le guide expert de votre parcours immobilier. À la tête de cette aventure passionnante, notre équipe fondatrice est composée d'experts chevronnés de l'immobilier. Chez DWellApart, nous sommes bien plus qu'une simple agence immobilière – nous sommes les créateurs de rêves, les facilitateurs de changement, et les compagnons de confiance pour chaque étape de votre voyage vers votre foyer idéal.</p>

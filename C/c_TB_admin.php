@@ -9,7 +9,6 @@ require_once '../M/Modele Visites.php';
 $appartement = new Appartement(); // Instanciation de la classe Appartement
 $annonces = $appartement->recupAppart(); // Appel de la méthode recupAppart()
 
-
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     
     if(isset($_POST['action'])) {
@@ -53,15 +52,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                     header("Location: ../V/v_espace_admin.php");
         }
-    }}
+    }
+
 }
-
-
-
+}
 $proprietaire = new Proprietaire(); // Instanciation de la classe Appartement
 $proprietaires = $proprietaire->recupProp(); // Appel de la méthode recupAppart()
 
-
+// cherche des listes
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Vérification de l'action à effectuer
     if (isset($_POST['action'])) {
@@ -187,7 +185,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 $locataire = new Locataire(); // Instanciation de la classe Appartement
 $locataires = $locataire->recupLoc(); // Appel de la méthode recupAppart()
 
-
+        
 
 
 

@@ -20,7 +20,9 @@ require_once '../C/c_TB_admin.php'; // Assurez-vous de mettre le bon chemin vers
 <header class="header-container">
     <img src="images/wsfgsr.png" alt="En-tête du site" class="header-image_index" width="100%" height="250px">
 </header>
+<p>
 
+</p>
 <h1>Liste des appartements</h1>
 <table class="table">
     <thead>

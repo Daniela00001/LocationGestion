@@ -4,5 +4,4 @@ require_once '../M/Modele  Appartement.php';
 $appartement = new Appartement();
 $annonces = $appartement->getAllAnnonces();
 
-
 ?>
