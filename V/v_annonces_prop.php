@@ -1,31 +1,42 @@
 <?php
 include 'v_espace_proprietaire.php';
-include '../M/Modele  Appartement.php';
-
+include '../M/Modele  Appartement.php'; 
+@session_start();
 ?>
 <link rel="stylesheet" type="text/css" href="../V/CSS/styleSessionProp.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 
 
-<div class="button-container">
+  <div class="button-container">
     <a href="v_annonces_ajoutApp.php" class="button">
         Ajouter une annonce <i class="fas fa-plus"></i>
     </a>
 </div>
+<?php
+if (isset($_SESSION['proprietaire'])) {
+    // Récupérer l'objet propriétaire de la session
+    $proprietaire = $_SESSION['proprietaire'];
+    $proprietaire_id = $proprietaire->getNumProp();
+    
+  
+    // Assurez-vous que $appartement est une instance de la classe Appartement
+    $appartement = new Appartement();
 
-<div class='separator'>
-    <?php
-    if (isset($_SESSION['proprietaire'])) {
-        $proprietaire_id = $_SESSION["proprietaire"]["num_prop"];
+    // Récupérer les annonces associées à ce propriétaire
+    $annonces_proprietaire = $appartement->getAnnoncesParProprietaire($proprietaire_id);
+    
+    if (!empty($annonces_proprietaire)) {
+        echo "<h2>Vos annonces :</h2>";
 
-        $appartement = new Appartement();
-        $annonces_proprietaire = $appartement->getAnnoncesParProprietaire($proprietaire_id);
 
-        if (!empty($annonces_proprietaire)) {
-            echo "<h2>Vos annonces :</h2>";
-            foreach ($annonces_proprietaire as $annonce) {
-                $num_apart = $annonce['num_apart'];
 
+
+
+        
+        foreach ($annonces_proprietaire as $annonce) {
+
+
+            $num_apart = $annonce['num_apart'];
                 echo "<div class='annonce' data-num_apart='{$num_apart}'>";
                 echo "<form action='../C/c_appartement_prop.php' method='post'>";
                 echo "<input type='hidden' name='num_apart' value='{$num_apart}'>";
@@ -81,13 +92,12 @@ include '../M/Modele  Appartement.php';
 
                 echo "</form>";
                 echo "</div>";
-            }
-
-        } else {
-            echo "<p>Vous n'avez pas encore ajouté d'appartements.</p>";
+            
         }
     } else {
-        echo "<p>Veuillez vous connecter en tant que propriétaire pour voir vos annonces.</p>";
+        echo "<p>Vous n'avez pas encore ajouté d'appartements.</p>";
     }
-    ?>
-</div>
+} else {
+    echo "<p>Veuillez vous connecter en tant que propriétaire pour voir vos annonces.</p>";
+}
+?>

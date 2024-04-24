@@ -11,11 +11,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $login = $_POST["login_dem"];
     $mdp_dem = $_POST["mdp_dem"];
 
-    $demandeur = new Demandeur();
-    $result = $demandeur->verifierDemandeur($login, $mdp_dem);
 
-    if ($result) {
-        $_SESSION["demandeur"] = $result;
+    $demandeur = Demandeur::verifierDemandeur($login, $mdp_dem);
+     
+   
+    if ($demandeur !== null) { 
+        $_SESSION["demandeur"] = $demandeur;
         header("Location: ../V/v_home_demandeur.php");
         exit();
     } else {

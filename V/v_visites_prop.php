@@ -9,28 +9,30 @@ $proprietaire = $_SESSION["proprietaire"];
 <br>
 
 <link rel="stylesheet" href="CSS/styleSessionProp.css">
-<H1>Vos vistes </H1>
-<?php
-echo '<div id="visites-container">';
+<H1>Vos visites</H1>
 
-foreach ($visites as $visite) {
-    echo '<div class="visite" id="visite_' . $visite['num_apart'] . '">';
-    echo '<h3>Numéro d\'appartement : ' . $visite['num_apart'] . '</h3>';
-    echo '<p>Date de visite : ' . $visite['date_visite'] . '</p>';
-    echo '<p>Numero demandeur : ' . $visite['num_dem'] . '</p>';
-    
-    
-    echo '<form method="POST" action="../C/c_visitesProp.php">'; 
-    echo '<input type="hidden" name="num_apart" value="' . $visite['num_apart'] . '">';
-    echo '<button type="submit">Supprimer</button>';
-    echo '</form>';
-    
-    echo '</div>'; 
-}
+<div class="visites-container">
+    <?php foreach ($visites as $visite): ?>
 
-echo '</div>'; 
-?>
-<br>
-<style>
+    <?php 
 
-</style>
+    $Visite = Visite::fromArrayToObject($visite);
+
+    ?>
+
+    <p class="prop-info"><?php echo $Visite->getNumDem(); ?></p> 
+
+    <div class="visite" id="visite_<?php echo $Visite->getNumApart(); ?>">
+        <h3>Numéro d'appartement : <?php echo $Visite->getNumApart(); ?></h3>
+        <p>Date de visite : <?php echo $Visite->getdate_visiteDemande(); ?></p>
+        <p>Numéro demandeur : <?php echo $Visite->getNumDem(); ?></p>
+    
+        <form method="POST" action="../C/c_visitesProp.php"> 
+            <input type="hidden" name="num_apart" value="<?php echo $Visite->getNumApart(); ?>">
+            <button type="submit">Supprimer</button>
+        </form>
+    </div>
+    <br>
+
+    <?php endforeach; ?>
+</div>

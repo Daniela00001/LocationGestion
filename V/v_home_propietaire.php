@@ -1,5 +1,6 @@
 <?php 
 include 'v_espace_proprietaire.php'; 
+include '../M/Modele  Appartement.php';
 include '../C/c_TB_Prop.php'; 
 ?>
 
@@ -8,10 +9,16 @@ include '../C/c_TB_Prop.php';
 <div class="demandes-container">
    
 <?php foreach ($demandes as $demande): ?>
+    <?php 
+
+$Appartement = Appartement::fromArrayToObject($demande);
+$Locataire= Locataire ::fromArrayToObject($demande);
+
+?>
     <div class="demande">
-        <p><strong>Numéro appartement :</strong> <?php echo $demande['num_apart']; ?></p>
-        <p><strong>Prix location :</strong> <?php echo $demande['prix_loc']; ?></p>
-        <p><strong>Prix charges :</strong> <?php echo $demande['prix_charges']; ?></p>
+        <p><strong>Numéro appartement :</strong> <?php echo $Appartement->getNumApart(); ?></p>
+        <p><strong>Prix location :</strong> <?php echo $Appartement->getPrixLoc(); ?></p>
+        <p><strong>Prix charges :</strong> <?php echo $Appartement->getPrixCharges(); ?></p>
         <br><br>
         <p><strong>Total mensuel :</strong> 
             <?php 
@@ -23,16 +30,17 @@ include '../C/c_TB_Prop.php';
                 }
             ?>
         </p>
+
         <p><Details>Locataire
-            <p><strong>Numéro locataire :</strong> <?php echo $demande['num_loc']; ?></p>
-            <p><strong>Nom locataire :</strong> <?php echo $demande['nom_loc']; ?></p>
-            <p><strong>Prénom_loc locataire :</strong> <?php echo $demande['prenom_loc']; ?></p>
-            <p><strong>Date de naissance :</strong> <?php echo $demande['date_naissance']; ?></p>
-            <p><strong>Telephone :</strong> <?php echo $demande['telephone_loc']; ?></p>
-            <p><strong>numCompt_loc:</strong> <?php echo $demande['numCompt_loc']; ?></p>
-            <p><strong>banque :</strong> <?php echo $demande['banque']; ?></p>
-            <p><strong>adresse_banque_loc :</strong> <?php echo $demande['adresse_banque_loc']; ?></p>
-            <p><strong>cp_banque_loc:</strong> <?php echo $demande['cp_banque_loc']; ?></p>
+          
+            <p><strong>Nom locataire :</strong> <?php echo $Locataire->getNomLoc(); ?></p>
+            <p><strong>Prénom_loc locataire :</strong> <?php echo $Locataire->getPrenomLoc(); ?></p>
+            <p><strong>Date de naissance :</strong> <?php echo $Locataire->getDateNaissance(); ?></p>
+            <p><strong>Telephone :</strong> <?php echo $Locataire->getTelephoneLoc(); ?></p>
+            <p><strong>numCompt_loc:</strong> <?php echo $Locataire->getNumComptLoc(); ?></p>
+            <p><strong>banque :</strong> <?php echo $Locataire->getBanque(); ?></p>
+            <p><strong>adresse_banque_loc :</strong><?php echo $Locataire->getAdresseBanqueLoc(); ?></p>
+            <p><strong>cp_banque_loc:</strong> <?php echo $Locataire->getCpBanqueLoc(); ?></p>
         </Details></p>
         <br>
         <form action="../C/c_supLoc.php" method="post">

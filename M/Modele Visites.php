@@ -16,7 +16,32 @@ public function __construct($num_apart='?',$num_dem = '?', $date_visite = '?', $
     $this->status = $status;
 }
 
+public function setNumApart($num_apart) {
+    $this->num_apart = $num_apart;
+}
+public function setNumDem($num_dem) {
+    $this->num_dem = $num_dem;
+}
 
+public function setDateVisite($date_visite) {
+    $this->date_visite = $date_visite;
+}
+
+public function getdate_visiteDemande() {
+    return $this->date_visite;
+}
+
+public function getNumDem() {
+    return $this->num_dem;
+}
+
+public function getNumApart() {
+    return $this->num_apart;
+}
+
+public function getStatutDemande() {
+    return $this->status;
+}
 // Méthode pour enregistrer la visite dans la base de données
 public function enregistrerVisite() {
     global $conn;
@@ -179,5 +204,19 @@ public function mettreAJourDateVisite($nouvelle_date_visite) {
     }
 }
 
+
+public static function fromArrayToObject($info) {
+    // Crée un nouvel objet Appartement
+    $visite = new Visite();
+
+    // Attribue les valeurs du tableau aux propriétés de l'objet
+    $visite->num_apart = $info['num_apart'];
+    $visite->num_dem = $info['num_dem'];
+    $visite->date_visite = $info['date_visite'];
+    $visite->status = $info['status'];
+
+    // Retourne l'objet Appartement créé
+    return $visite;
+}
 }
 ?>

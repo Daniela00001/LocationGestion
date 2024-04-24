@@ -56,13 +56,9 @@ class Proprietaire {
     }
     
 
-    // Méthode pour récupérer le numéro du propriétaire
-    public function getNumProp() {
-        return $this->num_prop; // Retourne le numéro du propriétaire
-    }
 
     // Méthode pour vérifier l'existence d'un propriétaire en fonction du login et du mot de passe
-    public function verifierProprietaire($login, $mdp) {
+    public static function verifierProprietaire($login, $mdp) {
         global $conn; // Utilise la connexion à la base de données définie dans le fichier param_connexion_BdD.php
         
         $query = "SELECT * FROM proprietaire WHERE login_prop = :login_prop AND mdp_prop = :mdp_prop";
@@ -71,8 +67,27 @@ class Proprietaire {
         $stmt->bindParam(":mdp_prop", $mdp); // (login_prop et mdp_prop)
         $stmt->execute(); // Exécute la requête SQL
 
-        return $stmt->fetch(PDO::FETCH_ASSOC); // Renvoie les résultats de la requête sous forme d'array associatif
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        
+
+        if ($row) {
+            $proprietaire = new Proprietaire();
+            $proprietaire->num_prop = $row['num_prop'];
+            $proprietaire->nom_prop = $row['nom_prop'];
+            $proprietaire->prenom_prop = $row['prenom_prop'];
+            $proprietaire->adresse_prop = $row['adresse_prop'];
+            $proprietaire->cp_prop = $row['cp_prop'];
+            $proprietaire->telephone_prop = $row['telephone_prop'];
+            $proprietaire->login_prop = $row['login_prop'];
+            $proprietaire->mdp_prop = $row['mdp_prop'];
+
+  
+            return $proprietaire;
+        } else {
+            return null; // Aucun locataire trouvé
+        }
     }
+
     public static function getProprietaireById($num_prop) {
         global $conn;
     
@@ -81,8 +96,25 @@ class Proprietaire {
         $stmt->bindParam(":num_prop", $num_prop);
         $stmt->execute();
     
-        return $stmt->fetch(PDO::FETCH_ASSOC);
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+    
+        if ($row) {
+            // Créer et retourner un nouvel objet Proprietaire avec les données récupérées
+            return new Proprietaire(
+                $row['nom_prop'],
+                $row['prenom_prop'],
+                $row['adresse_prop'],
+                $row['cp_prop'],
+                $row['telephone_prop'],
+                $row['login_prop'],
+                $row['mdp_prop']
+            );
+        } else {
+            return null; // Aucun proprietaire trouvé avec cet identifiant
+        }
     }
+    
+
     public function setNumProp($num_prop) {
         $this->num_prop = $num_prop;
     }
@@ -109,6 +141,37 @@ class Proprietaire {
         $this->mdp_prop = $mdp_prop;
     }
    
+    public function getNumProp() {
+        return $this->num_prop;
+    }
+
+    public function getNomProp() {
+        return $this->nom_prop;
+    }
+
+    public function getPrenomProp() {
+        return $this->prenom_prop;
+    }
+
+    public function getAdresseProp() {
+        return $this->adresse_prop;
+    }
+
+    public function getCpProp() {
+        return $this->cp_prop;
+    }
+
+    public function getTelephoneProp() {
+        return $this->telephone_prop;
+    }
+
+    public function getLoginProp() {
+        return $this->login_prop;
+    }
+
+    public function getMdpProp() {
+        return $this->mdp_prop;
+    }
     
     
     public function supprimerProprietaire($num_prop) {
@@ -189,5 +252,22 @@ class Proprietaire {
             echo "Erreur lors de la récupération des annonces : " . $e->getMessage(); // Affiche un message d'erreur en cas d'échec
             return []; // Retourne un tableau vide
         }
+    }
+
+
+    public static function fromArrayToObject($info) {
+        // Crée un nouvel objet Proprieter
+        $proprieter = new Proprietaire();
+        // Attribue les valeurs du tableau aux propriétés de l'objet
+        $proprieter->num_prop = $info['num_prop'];
+        $proprieter->nom_prop = $info['nom_prop'];
+        $proprieter->prenom_prop = $info['prenom_prop'];
+        $proprieter->adresse_prop = $info['adresse_prop'];
+        $proprieter->cp_prop = $info['cp_prop'];
+        $proprieter->telephone_prop = $info['telephone_prop'];
+        $proprieter->login_prop = $info['login_prop'];
+
+        // Retourne l'objet  créé
+        return $proprieter;
     }
 }

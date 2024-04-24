@@ -8,12 +8,12 @@ class DemandeLocation {
     protected $num_apart;
     protected $Statut_demande;
 
-    public function __construct($num_dem, $num_apart) {
+    public function __construct($ID_demande="?",$num_dem="?", $num_apart="?",$Statut_demande='En attente') {
+        $this->ID_demande = $ID_demande;
         $this->num_dem = $num_dem;
         $this->num_apart = $num_apart;
-        $this->Statut_demande = 'En attente'; // Par défaut, le statut est en attente
+        $this->Statut_demande = $Statut_demande; 
     }
-
     public function enregistrerDemandeLocation() {
         global $conn;
 
@@ -52,6 +52,23 @@ class DemandeLocation {
         }
     }
 
+
+
+    public function getIDDemande() {
+        return $this->ID_demande;
+    }
+
+    public function getNumDem() {
+        return $this->num_dem;
+    }
+
+    public function getNumApart() {
+        return $this->num_apart;
+    }
+
+    public function getStatutDemande() {
+        return $this->Statut_demande;
+    }
     // Méthode pour récupérer les demandes de location d'un demandeur spécifique
     public static function getDemandesLocationDemandeur($num_dem) {
         global $conn;
@@ -184,5 +201,18 @@ class DemandeLocation {
         }
     }
     
+    public static function fromArrayToObject($info) {
+         // Crée un nouvel objet Appartement
+         $demande = new DemandeLocation();
+    
+         // Attribue les valeurs du tableau aux propriétés de l'objet
+         $demande->ID_demande = $info['ID_demande'];
+         $demande->num_dem = $info['num_dem'];
+         $demande->num_apart = $info['num_apart'];
+         $demande->Statut_demande = $info['Statut_demande'];
+     
+         // Retourne l'objet Appartement créé
+         return $demande;
+     }
 }
-?>
+?>    

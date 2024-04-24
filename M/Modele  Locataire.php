@@ -53,7 +53,9 @@ class Locataire {
             $stmt->bindParam(':adresse_banque_loc', $this->adresse_banque_loc);
             $stmt->bindParam(':cp_banque_loc', $this->cp_banque_loc);
             $stmt->bindParam(':login_loc', $this->login_loc);
-            $stmt->bindParam(':mdp_loc', $this->mdp_loc);
+            $mot_de_passe_hache = password_hash($this->mdp_loc, PASSWORD_DEFAULT);
+            $stmt->bindParam(':mdp_loc', $mot_de_passe_hache);
+            
             $stmt->bindParam(':num_apart', $this->num_apart);
             $stmt->bindParam(':num_dem', $this->num_dem);
             
@@ -171,39 +173,49 @@ class Locataire {
         $this->num_apart = $num_apart;
     }
     
-    // Méthode pour vérifier l'existence d'un locataire en fonction du login et du mot de passe
-    public function verifierLocataire($login, $mdp) {
+
+ 
+    public static function verifierLocataire($login, $mdp) {
         global $conn; 
         
-        $query = "SELECT * FROM locataire WHERE login_loc = :login_loc AND mdp_loc = :mdp_loc";
-        $stmt = $conn->prepare($query); // Prépare une requête SQL SELECT
-        $stmt->bindParam(":login_loc", $login); // Lie les valeurs aux paramètres de la requête
-        $stmt->bindParam(":mdp_loc", $mdp); // (login_loc et mdp_loc)
-        $stmt->execute(); // Exécute la requête SQL
-
-        return $stmt->fetch(PDO::FETCH_ASSOC); // Renvoie les résultats de la requête sous forme d'array associatif
-    }
-    public function verifLoc() {
-        global $conn;
+        $query = "SELECT * FROM locataire WHERE login_loc = :login_loc";
+        $stmt = $conn->prepare($query);
+        $stmt->bindParam(":login_loc", $login);
+        $stmt->execute();
     
-        try {
-            // Vérifie si un locataire existe déjà pour ce demandeur
-            $sql_check = "SELECT COUNT(*) FROM locataire 
-                          WHERE num_dem = :num_dem";
-                          
-            $stmt_check = $conn->prepare($sql_check);
-            $stmt_check->bindParam(':num_dem', $this->num_dem);
-           
-            $stmt_check->execute();
-            $existing_locataires = $stmt_check->fetchColumn();
-    
-            return $existing_locataires > 0;
-        } catch (PDOException $e) {
-            // Ajoutez des messages de débogage ici
-            error_log('Erreur lors de la vérification des locataires : ' . $e->getMessage());
-            return false;
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        
+        if ($row) {
+            // Récupérer le mot de passe haché de la base de données
+            $motDePasseHache = $row['mdp_loc'];
+            
+            if (password_verify($mdp, $motDePasseHache)) {
+                // Crée un objet Locataire avec les données récupérées de la base de données
+                $locataire = new Locataire();
+                $locataire->num_loc = $row['num_loc'];
+                $locataire->nom_loc = $row['nom_loc'];
+                $locataire->prenom_loc = $row['prenom_loc'];
+                $locataire->date_naissance = $row['date_naissance'];
+                $locataire->telephone_loc = $row['telephone_loc'];
+                $locataire->numCompt_loc = $row['numCompt_loc'];
+                $locataire->banque = $row['banque'];
+                $locataire->adresse_banque_loc = $row['adresse_banque_loc'];
+                $locataire->cp_banque_loc = $row['cp_banque_loc'];
+                $locataire->login_loc = $row['login_loc'];
+                $locataire->mdp_loc = $row['mdp_loc'];
+                // Initialisez d'autres propriétés si nécessaire tu=
+                
+                return $locataire;
+            }
         }
+    
+        return null; // Aucun locataire trouvé ou mot de passe incorrect
     }
+    
+    
+    
+    
+    
     public static function getLocataireById($num_loc) {
         global $conn;
     
@@ -287,7 +299,7 @@ class Locataire {
     
     
     
-    public function getContratLoc($num_loc) {
+    public function getContratLoc() {
         global $conn;
     
         try {
@@ -298,16 +310,17 @@ class Locataire {
             ON proprietaire.num_prop=appartement.num_prop
             WHERE num_loc = :num_loc";
             $stmt = $conn->prepare($sql);
-            $stmt->bindParam(':num_loc', $num_loc, PDO::PARAM_INT);
+            $stmt->bindParam(':num_loc', $this->num_loc, PDO::PARAM_INT); // Utilisation de $this->num_loc
             $stmt->execute();
             $infos_locataire_appartement = $stmt->fetchAll(PDO::FETCH_ASSOC);
     
-            return $infos_locataire_appartement; // Changez la variable de retour à $infos_locataire_appartement
+            return $infos_locataire_appartement;
         } catch (PDOException $e) {
             echo "Erreur lors de la récupération des annonces : " . $e->getMessage();
             return [];
         }
     }
+    
     
   
 
@@ -330,7 +343,7 @@ class Locataire {
             }
         } catch (PDOException $e) {
             // Gestion des erreurs
-            echo "Erreur lors de la suppression du compte demandeur : " . $e->getMessage();
+            echo "Erreur lors de la suppression du compte locataire : " . $e->getMessage();
             return false;
         
         }
@@ -435,9 +448,25 @@ class Locataire {
     }
 
 
-
+    public static function fromArrayToObject($info) {
+        // Crée un nouvel objet Appartement
+        $locataire = new Locataire();
+    
+        // Attribue les valeurs du tableau aux propriétés de l'objet
+        $locataire->nom_loc = $info['nom_loc'];
+        $locataire->prenom_loc = $info['prenom_loc'];
+        $locataire->date_naissance = $info['date_naissance'];
+        $locataire->telephone_loc = $info['telephone_loc'];
+        $locataire->numCompt_loc = $info['numCompt_loc'];
+        $locataire->banque = $info['banque'];
+        $locataire->adresse_banque_loc = $info['adresse_banque_loc'];
+        $locataire->cp_banque_loc = $info['cp_banque_loc'];
+    
+        // Retourne l'objet Appartement créé
+        return $locataire;
+    }
+        
     }
    
-
-
+   
 ?>

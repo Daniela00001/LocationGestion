@@ -1,8 +1,8 @@
 <?php 
 include 'v_espace_locataire.php'; 
 include '../C/c_contratLoc.php'; 
-
-@session_start();
+include '../M/Modele  Proprietaire.php';
+include '../M/Modele  Appartement.php';
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -16,22 +16,31 @@ include '../C/c_contratLoc.php';
         <h1>Informations Proprietaire et Appartement</h1>
 
         <?php foreach ($infos_locataire_appartement as $info) : ?>
-            <div class="info-box">
+
+
+            <?php 
+
+            $Proprietaire = Proprietaire::fromArrayToObject($info);
+            $Appartement= Appartement ::fromArrayToObject($info);
+           
+            ?>
+
+<div class="info-box">
                 <h2>Informations du Proprietaire</h2>
-                <p class="prop-info">Nom : <?php echo $info['nom_prop']; ?></p>
-                <p class="prop-info">Prénom : <?php echo $info['prenom_prop']; ?></p>
-                <p class="prop-info">Téléphone : <?php echo $info['telephone_prop']; ?></p>
+                <p class="prop-info">Nom : <?php echo $Proprietaire->getNomProp(); ?></p> 
+                <p class="prop-info">Prénom : <?php echo $Proprietaire->getPrenomProp(); ?></p> 
+                <p class="prop-info">Téléphone : <?php echo $Proprietaire->getTelephoneProp(); ?></p> 
                 
                 <h2>Informations de l'Appartement</h2>
-                <p class="apart-info">Type : <?php echo $info['type_apart']; ?></p>
-                <p class="apart-info">Prix location : <?php echo $info['prix_loc']; ?></p>
-                <p class="apart-info">Prix charges : <?php echo $info['prix_charges']; ?></p>
-                <p class="apart-info">Rue : <?php echo $info['rue']; ?></p>
-                <p class="apart-info">Arrondissement : <?php echo $info['arrondissement']; ?></p>
-                <p class="apart-info">Étage : <?php echo $info['etage']; ?></p>
-                <p class="apart-info">Élévateur : <?php echo $info['elevator']; ?></p>
-                <p class="apart-info">Préavis : <?php echo $info['preavis']; ?></p>
-                <p class="total">Total à payer chaque mois : <?php echo $total_a_payer['total']; ?></p>
+                <p class="apart-info">Type : <?php echo $Appartement->getTypeApart(); ?></p>
+                <p class="apart-info">Prix location : <?php echo $Appartement->getPrixLoc(); ?>€</p>
+                <p class="apart-info">Prix charges : <?php echo $Appartement->getPrixCharges(); ?></p>
+                <p class="apart-info">Rue : <?php echo $Appartement->getRue(); ?></p>
+                <p class="apart-info">Arrondissement : <?php echo $Appartement->getArrondissement(); ?></p>
+                <p class="apart-info">Étage :<?php echo $Appartement->getEtage(); ?></p>
+                <p class="apart-info">Élévateur : <?php echo $Appartement->getElevator(); ?></p>
+                <p class="apart-info">Préavis : <?php echo $Appartement->getPreavis(); ?></p>
+                <p class="total">Total à payer chaque mois : <?php echo $total_a_payer['total']; ?>€</p>
             </div>
         <?php endforeach; ?>
     </div>

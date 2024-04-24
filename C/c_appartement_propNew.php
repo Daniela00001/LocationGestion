@@ -1,9 +1,9 @@
 <?php
-@session_start();
+
 require '../M/Modele  Appartement.php';
 require '../M/Modele  Proprietaire.php';
 require '../M/Modele motInterdit.php'; // Assurez-vous que le chemin d'accès est correct
-
+@session_start();
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Récupération des données du formulaire
     $type_apart = $_POST['type_apart'];
@@ -15,11 +15,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $elevator = $_POST['elevator'];
     $preavis = $_POST['preavis'];
     $date_libre = $_POST['date_libre'];
-    $num_prop = $_SESSION['proprietaire']['num_prop'];
+
+    // Récupération de l'objet Proprietaire depuis la session
+    $proprietaire = $_SESSION['proprietaire'];
+    $num_prop = $proprietaire->getNumProp();
+
     $details = $_POST['details'];
 
     if (MotsInterditsService::estMotInterdit($details,$rue)) {
-        
         echo "Le texte contient des mots interdits. Veuillez corriger et réessayer.";
         exit(); // Arrêter l'exécution du script
     }
@@ -27,6 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Insertion de l'annonce si aucune mot interdit n'est détecté
     $appartement = new Appartement($type_apart, $prix_loc, $prix_charges, $rue, $arrondissement, $etage, $elevator, $preavis, $date_libre, $num_prop, $details);
     $insertion_reussie = $appartement->inscription();
+
     if ($insertion_reussie) {
         // Redirection vers la page v_annonces_visualiser_prop.php si l'insertion est réussie
         header('Location: ../V/v_annonces_prop.php');

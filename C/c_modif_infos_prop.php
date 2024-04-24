@@ -1,57 +1,51 @@
 <?php
 require '../M/Modele  Proprietaire.php';
 
+session_start();
+
 if (isset($_POST['update'])) {
-    // Vérification des données reçues depuis le formulaire
-    var_dump($_POST);
+    if (isset($_POST['nom_prop'], $_POST['prenom_prop'], $_POST['adresse_prop'], $_POST['cp_prop'], $_POST['telephone_prop'], $_POST['login_prop'], $_POST['mdp_prop'])) {
+   $nom_prop= $_POST['nom_prop'] ?? '';
+   $prenom_prop= $_POST['nom_prop'] ?? '';
+   $adresse_prop= $_POST['adresse_prop'] ?? '';
+   $cp_prop= $_POST['cp_prop'] ?? '';
+   $telephone_prop = $_POST['telephone_prop'] ?? '';
+   $login_prop = $_POST['login_prop'] ?? '';
+   $mdp_prop = $_POST['mdp_prop'] ?? '';
 
-    // Récupération des données du formulaire
-    $num_prop = $_POST['num_prop'];
-    $nom = $_POST['nom_prop'] ?? '';
-    $prenom = $_POST['prenom_prop'] ?? '';
-    $adresse = $_POST['adresse_prop'] ?? '';
-    $cp = $_POST['cp_prop'] ?? '';
-    $telephone = $_POST['telephone_prop'] ?? '';
-    $login = $_POST['login_prop'] ?? '';
-    $mdp = $_POST['mdp_prop'] ?? '';
+    if(isset($_SESSION["proprietaire"]) && is_object($_SESSION["proprietaire"])) {
+        $proprietaire = $_SESSION["proprietaire"];
 
-    // Création d'une instance de la classe Proprietaire
-    $proprietaire_data = Proprietaire::getProprietaireById($num_prop);
-    $proprietaire = new Proprietaire(
-        $proprietaire_data['nom_prop'],
-        $proprietaire_data['prenom_prop'],
-        $proprietaire_data['adresse_prop'],
-        $proprietaire_data['cp_prop'],
-        $proprietaire_data['telephone_prop'],
-        $proprietaire_data['login_prop'],
-        $proprietaire_data['mdp_prop']
-    );
+        $success = $proprietaire->updateInfo($num_prop, $nom_prop, $prenom_prop, $adresse_prop, $cp_prop, $telephone_prop, $login_prop, $mdp_prop);
+        if ($success) {
+            echo "Mise à jour réussie!";
 
-    // Mise à jour des données du propriétaire
-    $success = $proprietaire->updateInfo(
-        $num_prop,
-        $nom,
-        $prenom,
-        $adresse,
-        $cp,
-        $telephone,
-        $login,
-        $mdp
-    );
+           $nom_prop= $_POST['nom_prop'];
+           $prenom_prop= $_POST['prenom_prop'];
+           $adresse_prop= $_POST['adresse_prop'];
+           $cp_prop= $_POST['cp_prop'];
+           $telephone_prop = $_POST['telephone_prop'];
+           $login_prop = $_POST['login_prop'];
+           $mdp_prop = $_POST['mdp_prop'];
 
-    // Vérification si la mise à jour a réussi
-    if ($success) {
-        echo "Mise à jour réussie!";
+   
+            $_SESSION["proprietaire"]->setNomProp($nom_prop);
+            $_SESSION["proprietaire"]->setPrenomProp($prenom_prop);
+            $_SESSION["proprietaire"]->setAdresseProp($adresse_prop);
+            $_SESSION["proprietaire"]->setCpProp($cp_prop);
+            $_SESSION["proprietaire"]->setTelephoneProp($telephone_prop);
+            $_SESSION["proprietaire"]->setLoginProp($login_prop);
+            $_SESSION["proprietaire"]->setMdpProp($mdp_prop);
 
-        session_destroy();
-        session_start();
-        $_SESSION["proprietaire"] = Proprietaire::getProprietaireById($num_prop);
-
-        // Redirection vers la page du profil du propriétaire
-        header("Location: ../V/v_profil_proprietaire.php");
-        exit(); // Assurez-vous de terminer l'exécution du script après la redirection
-    } else {
-        echo "Erreur lors de la mise à jour. Veuillez réessayer.";
+            // Redirection vers la page du profil du propriétaire
+            header("Location: ../V/v_profil_proprietaire.php");
+            exit(); 
+            } else {
+                echo "Erreur lors de la mise à jour. Veuillez réessayer.";
+            }
+        } else {
+            echo "Erreur: Objet Locataire non trouvé dans la session.";
+        }
     }
 }
 ?>

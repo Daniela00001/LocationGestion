@@ -1,10 +1,12 @@
 <?php
+require '../M/Modele  Demandeur.php';
 @session_start();
 
-if(isset($_SESSION["demandeur"])) {
+
+if(isset($_SESSION["demandeur"]) && is_object($_SESSION["demandeur"])) {
     $demandeur = $_SESSION["demandeur"];
-    $login_demandeur = $demandeur["login_dem"];
-}
+    $login_dem = $demandeur->getLoginDem();}
+
 ?>
 
 <!DOCTYPE html>
@@ -25,7 +27,7 @@ if(isset($_SESSION["demandeur"])) {
         <a href="v_demandes_Demandeur.php">Demandes</a>
         <a href="v_profil_demandeur.php">Profil</a>
         <a href="#" onclick="openModal()">&#128269;</a>
-        <div class="haut1"><?php echo $login_demandeur; ?></div>
+        <div class="haut1"><?php echo $login_dem; ?></div>
         <form method="post" action="../C/c_connexionD.php" class="haut">
             <input type="submit" name="deconnexion" value="Déconnexion" class="btn-deconnexion">
         </form>

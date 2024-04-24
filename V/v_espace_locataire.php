@@ -1,12 +1,14 @@
 <?php
+require '../M/Modele  Locataire.php';
+session_start();
 
-@session_start();
-if(isset($_SESSION["locataire"])) {
+
+if(isset($_SESSION["locataire"]) && is_object($_SESSION["locataire"])) {
     $locataire = $_SESSION["locataire"];
-    $login_loc = $locataire["login_loc"];
-    
-}
+    $login_loc = $locataire->getLoginLoc();}
+
 ?>
+
 
 <!DOCTYPE html>
 <html lang="fr">
@@ -14,24 +16,21 @@ if(isset($_SESSION["locataire"])) {
     <meta charset="UTF-8">
     <title>Page avec Menu et Image d'En-tête</title>
     <link rel="stylesheet" href="CSS/styleSessionLoc.css">
-
 </head>
 <body>
     <nav>
-    <div class="navbar">
-        <a href="v_home_locataire.php">Accueil</a>
-        <a href="v_profil_locataire.php">Profil</a>
-   <div class="haut1">  <?php echo $login_loc; ?></div>
-   <form method="post" action="../C/c_connexionL.php" class="haut">
-            <input type="submit" name="deconnexion" value="Déconnexion">
-        </form>
-        
+        <div class="navbar">
+            <a href="v_home_locataire.php">Accueil</a>
+            <a href="v_profil_locataire.php">Profil</a>
+            <div class="haut1"><?php echo $login_loc; ?></div>
+            <form method="post" action="../C/c_connexionL.php" class="haut">
+                <input type="submit" name="deconnexion" value="Déconnexion">
+            </form>
+        </div>
     </nav>
    
-     
     <header class="header-container">
         <img src="images/wsfgsr.png" alt="En-tête du site" class="header-image_index" width="100%" height="250px">
-        
     </header>
 </body>
 </html>

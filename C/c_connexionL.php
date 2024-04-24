@@ -1,6 +1,4 @@
-
 <?php
-
 require '../M/Modele  Locataire.php';
 session_start();
 
@@ -13,11 +11,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $login = $_POST["login_loc"];
         $mdp_loc = $_POST["mdp_loc"];
 
-        $locataire = new Locataire();
-        $result = $locataire->verifierLocataire($login, $mdp_loc);
+        // Utilisez la méthode verifierLocataire() pour vérifier les informations d'identification
+        $locataire = Locataire::verifierLocataire($login, $mdp_loc);
 
-        if ($result) {
-            $_SESSION["locataire"] = $result;
+        if ($locataire !== null) { // Vérifie si un objet Locataire a été retourné
+            // Stocke directement l'objet Locataire dans la session
+            $_SESSION["locataire"] = $locataire; 
             header("Location: ../V/v_home_locataire.php");
             exit();
         } else {
@@ -28,5 +27,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 // Si la méthode n'est pas POST, vous pouvez ajouter d'autres logiques ici si nécessaire.
-
 ?>

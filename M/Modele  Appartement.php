@@ -146,28 +146,130 @@ class Appartement {
         }
     }
 
+    public function setNumApart($num_apart) {
+        $this->num_apart = $num_apart;
+    }
+
+    public function setTypeApart($type_apart) {
+        $this->type_apart = $type_apart;
+    }
+
+    public function setPrixLoc($prix_loc) {
+        $this->prix_loc = $prix_loc;
+    }
+
+    public function setPrixCharges($prix_charges) {
+        $this->prix_charges = $prix_charges;
+    }
+
+    public function setRue($rue) {
+        $this->rue = $rue;
+    }
+
+    public function setArrondissement($arrondissement) {
+        $this->arrondissement = $arrondissement;
+    }
+
+    public function setEtage($etage) {
+        $this->etage = $etage;
+    }
+
+    public function setElevator($elevator) {
+        $this->elevator = $elevator;
+    }
+
+    public function setPreavis($preavis) {
+        $this->preavis = $preavis;
+    }
+
+    public function setDateLibre($date_libre) {
+        $this->date_libre = $date_libre;
+    }
+
+    public function setNumProp($num_prop) {
+        $this->num_prop = $num_prop;
+    }
+
+    public function setDetails($details) {
+        $this->details = $details;
+    }
+
+    public function getTypeApart() {
+        return $this->type_apart;
+    }
+
+    public function getPrixLoc() {
+        return $this->prix_loc;
+    }
+
+    public function getPrixCharges() {
+        return $this->prix_charges;
+    }
+
+    public function getRue() {
+        return $this->rue;
+    }
+
+    public function getArrondissement() {
+        return $this->arrondissement;
+    }
+
+    public function getEtage() {
+        return $this->etage;
+    }
+
+    public function getElevator() {
+        return $this->elevator;
+    }
+
+    public function getPreavis() {
+        return $this->preavis;
+    }
     // Méthode pour récupérer le numéro de l'appartement
     public function getNumApart() {
         return $this->num_apart;
     }
-
-    // Méthode pour récupérer toutes les annonces
+    public function getDateLibre() {
+        return $this->date_libre;
+    }
     public function getAllAnnonces() {
         global $conn;
-
+    
         try {
             $sql = "SELECT * FROM appartement
             WHERE num_apart NOT IN (SELECT num_apart FROM locataire)";
             $stmt = $conn->query($sql);
-            $annonces = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
+            $annoncesData = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    
+            $annonces = [];
+    
+            foreach ($annoncesData as $annonceData) {
+                // Créer un nouvel objet Appartement pour chaque ligne de résultat
+                $annonce = new Appartement();
+                // Affecter les valeurs aux propriétés de l'objet
+                $annonce->setNumApart($annonceData['num_apart']);
+                $annonce->setTypeApart($annonceData['type_apart']);
+                $annonce->setPrixLoc($annonceData['prix_loc']);
+                $annonce->setPrixCharges($annonceData['prix_charges']);
+                $annonce->setRue($annonceData['rue']);
+                $annonce->setArrondissement($annonceData['arrondissement']);
+                $annonce->setEtage($annonceData['etage']);
+                $annonce->setElevator($annonceData['elevator']);
+                $annonce->setPreavis($annonceData['preavis']);
+                $annonce->setDateLibre($annonceData['date_libre']);
+                $annonce->setNumProp($annonceData['num_prop']);
+                $annonce->setDetails($annonceData['details']);
+    
+                // Ajouter l'objet à la liste des annonces
+                $annonces[] = $annonce;
+            }
+    
             return $annonces;
         } catch (PDOException $e) {
             echo "Erreur lors de la récupération des annonces : " . $e->getMessage();
             return [];
         }
     }
-   
     
 
     // Méthode pour rechercher les appartements par type
@@ -319,6 +421,24 @@ class Appartement {
     }
     
       
+public static function fromArrayToObject($info) {
+    // Crée un nouvel objet Appartement
+    $appartement = new Appartement();
+
+    // Attribue les valeurs du tableau aux propriétés de l'objet
+    $appartement->num_apart = $info['num_apart'];
+    $appartement->type_apart = $info['type_apart'];
+    $appartement->prix_loc = $info['prix_loc'];
+    $appartement->prix_charges = $info['prix_charges'];
+    $appartement->rue = $info['rue'];
+    $appartement->arrondissement = $info['arrondissement'];
+    $appartement->etage = $info['etage'];
+    $appartement->elevator = $info['elevator'];
+    $appartement->preavis = $info['preavis'];
+
+    // Retourne l'objet Appartement créé
+    return $appartement;
+}
         
 }
 ?>

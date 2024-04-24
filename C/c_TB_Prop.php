@@ -1,17 +1,14 @@
 <?php
 require '../M/Modele  Locataire.php'; // Assurez-vous d'inclure la classe Locataire
+
 @session_start();
 $proprietaire = $_SESSION["proprietaire"];
 
+// Accédez aux propriétés de l'objet $proprietaire avec l'opérateur ->
+$total = Locataire::getTotauxMensuelsParAppartement($proprietaire->getNumProp());
 
+$totalProp = Locataire::getTotalMensuelProprietaire($proprietaire->getNumProp());
 
-$total = Locataire::getTotauxMensuelsParAppartement($proprietaire['num_prop']);
-
-$totalProp = Locataire::getTotalMensuelProprietaire($proprietaire['num_prop']);
-
-
-$demandes = Locataire::getDemandesProprietaireLouer($proprietaire['num_prop']);
-
-
+$demandes = Locataire::getDemandesProprietaireLouer($proprietaire->getNumProp());
 
 ?>

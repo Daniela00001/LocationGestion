@@ -1,5 +1,7 @@
 <?php
 include 'v_espace_proprietaire.php';
+@session_start();
+
 ?>
 <!DOCTYPE html>
 <html lang="fr">

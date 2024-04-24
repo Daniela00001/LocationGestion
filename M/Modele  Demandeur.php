@@ -54,9 +54,39 @@ class Demandeur {
         }
     }
 
+    public function getNumDem() {
+        return $this->num_dem;
+    }
 
+    public function getNomDem() {
+        return $this->nom_dem;
+    }
+
+    public function getPrenomDem() {
+        return $this->prenom_dem;
+    }
+
+    public function getAdresseDem() {
+        return $this->adresse_dem;
+    }
+
+    public function getCpDem() {
+        return $this->cp_dem;
+    }
+
+    public function getTelephoneDem() {
+        return $this->telephone_dem;
+    }
+
+    public function getLoginDem() {
+        return $this->login_dem;
+    }
+
+    public function getMdpDem() {
+        return $this->mdp_dem;
+    }
     // Méthode pour vérifier l'existence d'un demandeur en fonction du login et du mot de passe
-    public function verifierDemandeur($login, $mdp) {
+    public static function verifierDemandeur($login, $mdp) {
         global $conn; // Utilise la connexion à la base de données définie dans le fichier param_connexion_BdD.php
         
         $query = "SELECT * FROM demandeur WHERE login_dem = :login AND mdp_dem = :mdp";
@@ -65,9 +95,25 @@ class Demandeur {
         $stmt->bindParam(":mdp", $mdp); // (login_dem et mdp_dem)
         $stmt->execute(); // Exécute la requête SQL
 
-        return $stmt->fetch(PDO::FETCH_ASSOC); // Renvoie les résultats de la requête sous forme d'array associatif
-    }
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+       
+    
+        if ($row) {
+            $demandeur = new Demandeur();
+            $demandeur->num_dem = $row['num_dem'];
+            $demandeur->nom_dem = $row['nom_dem'];
+            $demandeur->prenom_dem = $row['prenom_dem'];
+            $demandeur->cp_dem = $row['cp_dem'];
+            $demandeur->adresse_dem = $row['adresse_dem'];
+            $demandeur->telephone_dem = $row['telephone_dem'];
+            $demandeur->login_dem = $row['login_dem'];
+            $demandeur->mdp_dem = $row['mdp_dem'];
 
+            return $demandeur;
+        } else {
+            return null; // Aucun locataire trouvé
+        }
+    }
     // Méthode pour récupérer toutes les annonces d'appartements
     public function getAllAnnonces() {
         global $conn; // Utilise la connexion à la base de données définie dans le fichier param_connexion_BdD.php

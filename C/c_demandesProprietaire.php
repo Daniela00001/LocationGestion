@@ -1,5 +1,6 @@
 <?php
 require_once '../M/Modele  Demande.php';
+
 @session_start();
 $proprietaire = $_SESSION["proprietaire"];
 
@@ -10,9 +11,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             // Récupération de l'ID de demande depuis le formulaire
             $ID_demande = $_POST['ID_demande'];
 
-            // Création d'un objet DemandeLocation
-            $demande = new DemandeLocation(null, null);
-
+            $demande= new DemandeLocation;
             // Appel de la méthode pour refuser la demande
             $message = $demande->refuserDemande($ID_demande);
 
@@ -28,11 +27,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Vérification si l'ID de demande est présent
         if (isset($_POST['ID_demande'])) {
             $ID_demande = $_POST['ID_demande'];
-
-            // Création d'un objet DemandeLocation
-            $demande = new DemandeLocation(null, null);
-
-            // Appel de la méthode pour accepter la demande
+            $demande= new DemandeLocation;
             $message = $demande->accepterDemande($ID_demande);
 
             // Redirection vers la page précédente ou autre action nécessaire
@@ -46,7 +41,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 
 // Récupérer à nouveau la liste des demandes après la mise à jour
-$demandes = DemandeLocation::getDemandesProprietaire($proprietaire['num_prop']);
-
+$demandes = DemandeLocation::getDemandesProprietaire($proprietaire->getNumProp());
 
 ?>
